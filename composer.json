@@ -1,0 +1,14 @@
+{
+  "name": "kegi/netscape-cookie-file-handler",
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4"
+  },
+  "autoload": {
+    "psr-4": {
+      "KeGi\\NetscapeCookieFileHandler\\": "src/NetscapeCookieFileHandler"
+    }
+  }
+}
