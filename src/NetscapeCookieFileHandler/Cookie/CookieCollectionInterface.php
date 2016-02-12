@@ -3,7 +3,7 @@
 namespace KeGi\NetscapeCookieFileHandler\Cookie;
 
 use JsonSerializable;
-use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
+use KeGi\NetscapeCookieFileHandler\Cookie\Exception\CookieCollectionException;
 
 interface CookieCollectionInterface extends JsonSerializable
 {
@@ -17,7 +17,7 @@ interface CookieCollectionInterface extends JsonSerializable
      * @param array $cookies
      *
      * @return self
-     * @throws CookieJarException
+     * @throws CookieCollectionException
      */
     public function setCookies(array $cookies) : CookieCollectionInterface;
 
@@ -58,7 +58,6 @@ interface CookieCollectionInterface extends JsonSerializable
      * @param string|null $domain
      *
      * @return self
-     * @throws CookieJarException
      */
     public function delete(
         string $cookieName,

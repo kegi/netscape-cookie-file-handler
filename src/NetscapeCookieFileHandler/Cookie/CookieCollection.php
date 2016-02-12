@@ -2,7 +2,7 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Cookie;
 
-use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
+use KeGi\NetscapeCookieFileHandler\Cookie\Exception\CookieCollectionException;
 
 class CookieCollection implements CookieCollectionInterface
 {
@@ -24,7 +24,7 @@ class CookieCollection implements CookieCollectionInterface
      * @param array $cookies
      *
      * @return CookieCollectionInterface
-     * @throws CookieJarException
+     * @throws CookieCollectionException
      */
     public function setCookies(array $cookies) : CookieCollectionInterface
     {
@@ -32,7 +32,7 @@ class CookieCollection implements CookieCollectionInterface
         foreach ($cookies as $cookie) {
 
             if (!is_object($cookie)) {
-                throw new CookieJarException(
+                throw new CookieCollectionException(
                     sprintf(
                         'Expected CookieInterface, got : %1$s',
                         gettype($cookie)
@@ -41,7 +41,7 @@ class CookieCollection implements CookieCollectionInterface
             }
 
             if ($cookie instanceof CookieInterface) {
-                throw new CookieJarException(
+                throw new CookieCollectionException(
                     sprintf(
                         'Expected CookieInterface, got : %1$s',
                         get_class($cookie)
