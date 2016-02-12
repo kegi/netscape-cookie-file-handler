@@ -40,6 +40,7 @@ interface CookieCollectionInterface extends JsonSerializable
      * @param CookieInterface $cookie
      *
      * @return self
+     * @throws CookieCollectionException
      */
     public function add(
         CookieInterface $cookie

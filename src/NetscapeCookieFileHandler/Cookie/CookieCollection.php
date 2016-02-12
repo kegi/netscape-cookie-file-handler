@@ -111,6 +111,7 @@ class CookieCollection implements CookieCollectionInterface
      * @param CookieInterface $cookie
      *
      * @return CookieCollectionInterface
+     * @throws CookieCollectionException
      */
     public function add(
         CookieInterface $cookie
@@ -120,11 +121,33 @@ class CookieCollection implements CookieCollectionInterface
         $cookieDomain = $cookie->getDomain();
         $cookieName = $cookie->getName();
 
-        if (!isset($this->cookies[$cookieDomain])) {
-            $this->cookies[$cookieDomain] = [];
-        }
+        if ($cookieDomain === null) {
 
-        $this->cookies[$cookieDomain][$cookieName] = $cookie;
+            /*if there is no cookie and the given cookie doesn't have a domain,
+            we throw an exception*/
+
+            if (count($this->cookies) === 0) {
+                throw new CookieCollectionException(
+                    'You cannot add a cookie with no domain to an empty cookie jar'
+                );
+            }
+
+            /*we add this cookie to all knowns domains*/
+
+            foreach ($this->cookies as $domain => $cookies) {
+
+                $generatedCookie = clone $cookie;
+                $generatedCookie->setDomain($domain);
+                $this->cookies[$domain][$cookieName] = $generatedCookie;
+
+            }
+        } else {
+            if (!isset($this->cookies[$cookieDomain])) {
+                $this->cookies[$cookieDomain] = [];
+            }
+
+            $this->cookies[$cookieDomain][$cookieName] = $cookie;
+        }
 
         return $this;
     }
