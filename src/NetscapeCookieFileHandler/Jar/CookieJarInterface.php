@@ -35,6 +35,18 @@ interface CookieJarInterface
     ) : CookieJarInterface;
 
     /**
+     * @return string|null
+     */
+    public function getCookiesFile();
+
+    /**
+     * @param string|null $cookiesFile
+     *
+     * @return self
+     */
+    public function setCookiesFile($cookiesFile) : CookieJarInterface;
+
+    /**
      * @param string      $cookieName
      * @param string|null $domain
      *

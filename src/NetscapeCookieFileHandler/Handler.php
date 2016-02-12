@@ -42,7 +42,8 @@ class Handler
 
         return new CookieJar(
             $this->getConfiguration(),
-            $this->getParser()->parseFile($file)
+            $this->getParser()->parseFile($file),
+            $file
         );
     }
 

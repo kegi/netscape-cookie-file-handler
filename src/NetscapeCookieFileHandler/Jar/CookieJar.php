@@ -21,6 +21,11 @@ class CookieJar implements CookieJarInterface
     private $cookies;
 
     /**
+     * @var string|null
+     */
+    private $cookiesFile;
+
+    /**
      * @var CookieJarPersisterInterface
      */
     private $persister;
@@ -28,14 +33,17 @@ class CookieJar implements CookieJarInterface
     /**
      * @param ConfigurationInterface    $configuration
      * @param CookieCollectionInterface $cookies
+     * @param string|null               $cookiesFile
      */
     public function __construct(
         ConfigurationInterface $configuration,
-        CookieCollectionInterface $cookies
+        CookieCollectionInterface $cookies,
+        string $cookiesFile = null
     ) {
 
         $this->setConfiguration($configuration);
         $this->setCookies($cookies);
+        $this->setCookiesFile($cookiesFile);
     }
 
     /**
@@ -81,6 +89,26 @@ class CookieJar implements CookieJarInterface
     }
 
     /**
+     * @return string|null
+     */
+    public function getCookiesFile()
+    {
+        return $this->cookiesFile;
+    }
+
+    /**
+     * @param string|null $cookiesFile
+     *
+     * @return CookieJarInterface
+     */
+    public function setCookiesFile($cookiesFile) : CookieJarInterface
+    {
+        $this->cookiesFile = $cookiesFile;
+
+        return $this;
+    }
+
+    /**
      * @param string      $cookieName
      * @param string|null $domain
      *
@@ -114,7 +142,11 @@ class CookieJar implements CookieJarInterface
     {
 
         $this->getCookies()->add($cookie);
-        $this->getPersister()->persist($this->getCookies());
+
+        if ($this->getCookiesFile() !== null) {
+            $this->getPersister()
+                ->persist($this->getCookies(), $this->getCookiesFile());
+        }
 
         return $this;
     }
@@ -145,7 +177,11 @@ class CookieJar implements CookieJarInterface
     {
 
         $this->getCookies()->delete($cookieName);
-        $this->getPersister()->persist($this->getCookies());
+
+        if ($this->getCookiesFile() !== null) {
+            $this->getPersister()
+                ->persist($this->getCookies(), $this->getCookiesFile());
+        }
 
         return $this;
     }
@@ -159,7 +195,11 @@ class CookieJar implements CookieJarInterface
     {
 
         $this->getCookies()->deleteAll($domain);
-        $this->getPersister()->persist($this->getCookies());
+
+        if ($this->getCookiesFile() !== null) {
+            $this->getPersister()
+                ->persist($this->getCookies(), $this->getCookiesFile());
+        }
 
         return $this;
     }
