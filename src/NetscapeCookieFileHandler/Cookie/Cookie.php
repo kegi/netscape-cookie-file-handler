@@ -8,24 +8,24 @@ class Cookie implements CookieInterface
 {
 
     /**
-     * @var string
+     * @var string|null
      */
     private $domain;
 
     /**
      * @var bool
      */
-    private $httpOnly;
+    private $httpOnly = false;
 
     /**
      * @var string
      */
-    private $path;
+    private $path = '/';
 
     /**
      * @var bool
      */
-    private $secure;
+    private $secure = false;
 
     /**
      * @var DateTime|null
@@ -35,27 +35,27 @@ class Cookie implements CookieInterface
     /**
      * @var string
      */
-    private $name;
+    private $name = '';
 
     /**
      * @var string
      */
-    private $value;
+    private $value = '';
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDomain() : string
+    public function getDomain()
     {
         return $this->domain;
     }
 
     /**
-     * @param string $domain
+     * @param string|null $domain
      *
      * @return CookieInterface
      */
-    public function setDomain(string $domain) : CookieInterface
+    public function setDomain(string $domain = null) : CookieInterface
     {
         $this->domain = $domain;
 

@@ -8,16 +8,16 @@ use JsonSerializable;
 interface CookieInterface extends JsonSerializable
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDomain() : string;
+    public function getDomain();
 
     /**
-     * @param string $domain
+     * @param string|null $domain
      *
      * @return self
      */
-    public function setDomain(string $domain) : CookieInterface;
+    public function setDomain(string $domain = null) : CookieInterface;
 
     /**
      * @return bool
