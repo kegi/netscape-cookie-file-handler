@@ -22,42 +22,56 @@ interface CookieCollectionInterface extends JsonSerializable
     public function setCookies(array $cookies) : CookieCollectionInterface;
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return CookieInterface|null
      */
-    public function get(string $cookieName);
+    public function get(string $cookieName, string $domain = null);
 
     /**
-     * @param string $cookieName
+     * @param string|null $domain
+     *
+     * @return CookieCollectionInterface
+     */
+    public function getAll(string $domain = null) : CookieCollectionInterface;
+
+    /**
      * @param CookieInterface $cookie
      *
      * @return self
      */
     public function add(
-        string $cookieName,
         CookieInterface $cookie
     ) : CookieCollectionInterface;
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return bool
      */
-    public function has(string $cookieName) : bool;
+    public function has(string $cookieName, string $domain = null) : bool;
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return self
      * @throws CookieJarException
      */
-    public function delete(string $cookieName) : CookieCollectionInterface;
+    public function delete(
+        string $cookieName,
+        string $domain = null
+    ) : CookieCollectionInterface;
 
     /**
+     * @param string|null $domain
+     *
      * @return self
      */
-    public function deleteAll() : CookieCollectionInterface;
+    public function deleteAll(string $domain = null
+    ) : CookieCollectionInterface;
 
     /**
      * @return array

@@ -13,7 +13,9 @@ try {
     $configuration = (new Configuration())->setCookieDir(__DIR__ . '/cookies');
     $cookieJar = (new Handler($configuration))->parseFile('example.txt');
 
-    var_dump(json_encode($cookieJar->getAll()));
+//    var_dump(json_encode($cookieJar->getAll()));
+//    var_dump($cookieJar->get('key_a', 'domain2.dev')->toArray());
+    var_dump($cookieJar->getAll()->toArray());
 
 } catch (NetscapeCookieFileHandlerException $e) {
 

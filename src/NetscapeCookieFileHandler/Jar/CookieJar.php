@@ -3,7 +3,6 @@
 namespace KeGi\NetscapeCookieFileHandler\Jar;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
-use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollection;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
@@ -82,61 +81,67 @@ class CookieJar implements CookieJarInterface
     }
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return CookieInterface|null
      */
-    public function get(string $cookieName)
+    public function get(string $cookieName, string $domain = null)
     {
 
-        return $this->getCookies()->get($cookieName);
+        return $this->getCookies()->get($cookieName, $domain);
     }
 
     /**
+     * @param string|null $domain
+     *
      * @return CookieCollectionInterface
      */
-    public function getAll() : CookieCollectionInterface
+    public function getAll(string $domain = null) : CookieCollectionInterface
     {
 
-        return $this->getCookies();
+        return $this->getCookies()->getAll($domain);
     }
 
     /**
-     * @param string          $cookieName
-     * @param CookieInterface $value
+     * @param CookieInterface $cookie
      *
      * @return CookieJarInterface
      */
     public function add(
-        string $cookieName,
-        CookieInterface $value
+        CookieInterface $cookie
     ) : CookieJarInterface
     {
 
-        $this->getCookies()->add($cookieName, $value);
+        $this->getCookies()->add($cookie);
         $this->getPersister()->persist($this->getCookies());
 
         return $this;
     }
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return bool
      */
-    public function has(string $cookieName) : bool
+    public function has(string $cookieName, string $domain = null) : bool
     {
 
-        return $this->getCookies()->has($cookieName);
+        return $this->getCookies()->has($cookieName, $domain);
     }
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return CookieJarInterface
      * @throws CookieJarException
      */
-    public function delete(string $cookieName) : CookieJarInterface
+    public function delete(
+        string $cookieName,
+        string $domain = null
+    ) : CookieJarInterface
     {
 
         $this->getCookies()->delete($cookieName);
@@ -146,12 +151,14 @@ class CookieJar implements CookieJarInterface
     }
 
     /**
+     * @param string|null $domain
+     *
      * @return CookieJarInterface
      */
-    public function deleteAll() : CookieJarInterface
+    public function deleteAll(string $domain = null) : CookieJarInterface
     {
 
-        $this->setCookies(new CookieCollection());
+        $this->getCookies()->deleteAll($domain);
         $this->getPersister()->persist($this->getCookies());
 
         return $this;
@@ -162,6 +169,7 @@ class CookieJar implements CookieJarInterface
      */
     public function getPersister() : CookieJarPersisterInterface
     {
+
         return $this->persister ??
         new CookieJarPersister($this->getConfiguration());
     }

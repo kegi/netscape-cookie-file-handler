@@ -35,46 +35,54 @@ interface CookieJarInterface
     ) : CookieJarInterface;
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
-     * @return Mixed
+     * @return CookieInterface|null
      */
-    public function get(string $cookieName);
+    public function get(string $cookieName, string $domain = null);
 
     /**
+     * @param string|null $domain
+     *
      * @return CookieCollectionInterface
      */
-    public function getAll() : CookieCollectionInterface;
+    public function getAll(string $domain = null) : CookieCollectionInterface;
 
     /**
-     * @param string $cookieName
-     * @param CookieInterface $value
+     * @param CookieInterface $cookie
      *
      * @return CookieJarInterface
      */
     public function add(
-        string $cookieName,
-        CookieInterface $value
+        CookieInterface $cookie
     ) : CookieJarInterface;
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return bool
      */
-    public function has(string $cookieName) : bool;
+    public function has(string $cookieName, string $domain = null) : bool;
 
     /**
-     * @param string $cookieName
+     * @param string      $cookieName
+     * @param string|null $domain
      *
      * @return CookieJarInterface
      */
-    public function delete(string $cookieName) : CookieJarInterface;
+    public function delete(
+        string $cookieName,
+        string $domain = null
+    ) : CookieJarInterface;
 
     /**
+     * @param string|null $domain
+     *
      * @return CookieJarInterface
      */
-    public function deleteAll() : CookieJarInterface;
+    public function deleteAll(string $domain = null) : CookieJarInterface;
 
     /**
      * @return CookieJarPersisterInterface
