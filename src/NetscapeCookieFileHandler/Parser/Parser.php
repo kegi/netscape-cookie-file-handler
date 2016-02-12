@@ -107,16 +107,18 @@ class Parser implements ParserInterface
                 continue;
             }
 
-            $expire = empty($cookieData[4]) ? null
-                : new DateTime($cookieData[4]);
+            $expire = empty($cookieData[4]) ? null : $cookieData[4];
+
+            if (preg_match('#^[0-9]+$#i', $expire)) {
+                $expire = new DateTime(date('Y-m-d H:i:s', (int)$expire));
+            }
 
             $cookies->add(
-                $cookieData[5],
                 (new Cookie())
                     ->setDomain($cookieData[0])
-                    ->setHttpOnly((bool)$cookieData[1])
+                    ->setHttpOnly(strtolower($cookieData[1]) === 'true')
                     ->setPath($cookieData[2])
-                    ->setSecure((bool)$cookieData[3])
+                    ->setSecure(strtolower($cookieData[3]) === 'true')
                     ->setExpire($expire)
                     ->setName($cookieData[5])
                     ->setValue($cookieData[6])
