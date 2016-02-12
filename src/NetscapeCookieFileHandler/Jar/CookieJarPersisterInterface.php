@@ -22,9 +22,12 @@ interface CookieJarPersisterInterface
 
     /**
      * @param CookieCollectionInterface $cookies
+     * @param string                    $filename
      *
      * @return self
      */
-    public function persist(CookieCollectionInterface $cookies
+    public function persist(
+        CookieCollectionInterface $cookies,
+        string $filename
     ) : CookieJarPersisterInterface;
 }
