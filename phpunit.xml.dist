@@ -9,7 +9,13 @@
          syntaxCheck="false">
     <testsuites>
         <testsuite name="Netscape Cookie File Handler">
-            <directory>./tests/NetscapeCookieFileHandler</directory>
+            <directory>./tests/NetscapeCookieFileHandler/</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src/NetscapeCookieFileHandler</directory>
+        </whitelist>
+    </filter>
 </phpunit>
