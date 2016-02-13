@@ -4,7 +4,6 @@ namespace KeGi\NetscapeCookieFileHandler\Configuration;
 
 interface HasConfigurationInterface
 {
-
     /**
      * @return ConfigurationInterface|null
      */

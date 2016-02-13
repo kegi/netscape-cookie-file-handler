@@ -7,7 +7,6 @@ use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
 
 class CookieCollectionException extends NetscapeCookieFileHandlerException
 {
-
     /**
      * @param string         $message
      * @param int            $code
@@ -18,8 +17,7 @@ class CookieCollectionException extends NetscapeCookieFileHandlerException
         $code = 0,
         Exception $previous = null
     ) {
-
-        $message = 'Cookie collection : ' . $message;
+        $message = 'Cookie collection : '.$message;
 
         parent::__construct($message, $code, $previous);
     }

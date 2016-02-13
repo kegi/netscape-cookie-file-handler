@@ -8,10 +8,8 @@ use PHPUnit_Framework_TestCase;
 
 class ConfigurationTest extends PHPUnit_Framework_TestCase
 {
-
     public function testCookieDirParameterTest()
     {
-
         $dir = 'foo';
 
         $configuration = new Configuration();

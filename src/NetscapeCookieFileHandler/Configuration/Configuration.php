@@ -4,7 +4,6 @@ namespace KeGi\NetscapeCookieFileHandler\Configuration;
 
 class Configuration implements ConfigurationInterface
 {
-
     /**
      * @var string
      */

@@ -7,7 +7,6 @@ use KeGi\NetscapeCookieFileHandler\Cookie\Exception\CookieCollectionException;
 
 interface CookieCollectionInterface extends JsonSerializable
 {
-
     /**
      * @return array
      */
@@ -16,8 +15,9 @@ interface CookieCollectionInterface extends JsonSerializable
     /**
      * @param array $cookies
      *
-     * @return self
      * @throws CookieCollectionException
+     *
+     * @return self
      */
     public function setCookies(array $cookies) : CookieCollectionInterface;
 
@@ -39,8 +39,9 @@ interface CookieCollectionInterface extends JsonSerializable
     /**
      * @param CookieInterface $cookie
      *
-     * @return self
      * @throws CookieCollectionException
+     *
+     * @return self
      */
     public function add(
         CookieInterface $cookie

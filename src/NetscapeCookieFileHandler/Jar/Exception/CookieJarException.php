@@ -17,8 +17,7 @@ class CookieJarException extends NetscapeCookieFileHandlerException
         $code = 0,
         Exception $previous = null
     ) {
-
-        $message = 'Cookie Jar : ' . $message;
+        $message = 'Cookie Jar : '.$message;
 
         parent::__construct($message, $code, $previous);
     }

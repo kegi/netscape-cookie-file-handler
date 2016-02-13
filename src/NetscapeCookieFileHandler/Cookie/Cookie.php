@@ -6,7 +6,6 @@ use DateTime;
 
 class Cookie implements CookieInterface
 {
-
     /**
      * @var string|null
      */
@@ -187,15 +186,14 @@ class Cookie implements CookieInterface
      */
     public function toArray() : array
     {
-
         return [
-            'domain' => $this->getDomain(),
+            'domain'   => $this->getDomain(),
             'httpOnly' => $this->isHttpOnly(),
-            'path' => $this->getPath(),
-            'secure' => $this->isSecure(),
-            'expire' => $this->getExpire(),
-            'name' => $this->getName(),
-            'value' => $this->getValue(),
+            'path'     => $this->getPath(),
+            'secure'   => $this->isSecure(),
+            'expire'   => $this->getExpire(),
+            'name'     => $this->getName(),
+            'value'    => $this->getValue(),
         ];
     }
 
@@ -204,7 +202,6 @@ class Cookie implements CookieInterface
      */
     public function jsonSerialize() : array
     {
-
         return $this->toArray();
     }
 }

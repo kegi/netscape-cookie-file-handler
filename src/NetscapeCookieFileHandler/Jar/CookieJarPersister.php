@@ -12,11 +12,10 @@ use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 
 class CookieJarPersister implements CookieJarPersisterInterface
 {
-
     use MandatoryConfigurationTrait;
 
     /**
-     * Cookie file header
+     * Cookie file header.
      */
     const FILE_HEADERS
         = [
@@ -31,7 +30,6 @@ class CookieJarPersister implements CookieJarPersisterInterface
     public function __construct(
         ConfigurationInterface $configuration
     ) {
-
         $this->setConfiguration($configuration);
     }
 
@@ -39,16 +37,15 @@ class CookieJarPersister implements CookieJarPersisterInterface
      * @param CookieCollectionInterface $cookies
      * @param string                    $filename
      *
-     * @return CookieJarPersisterInterface
      * @throws CookieJarPersisterException
      * @throws ParserException
+     *
+     * @return CookieJarPersisterInterface
      */
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
-    ) : CookieJarPersisterInterface
-    {
-
+    ) : CookieJarPersisterInterface {
         if (empty($this->getConfiguration()->getCookieDir())) {
             throw new ParserException(
                 'You need to specify the cookieDir parameter in configurations in order to persist a file'
@@ -58,17 +55,15 @@ class CookieJarPersister implements CookieJarPersisterInterface
         $cookieDir = rtrim(
                 $this->getConfiguration()->getCookieDir(),
                 DIRECTORY_SEPARATOR
-            ) . DIRECTORY_SEPARATOR;
+            ).DIRECTORY_SEPARATOR;
 
-        $filename = $cookieDir . $filename;
+        $filename = $cookieDir.$filename;
 
         $fileContent = $this->generateFileOutput($cookies);
 
         if (empty($fileContent)) {
-
             if (is_file($filename)) {
                 if (!@unlink($filename)) {
-
                     throw new CookieJarPersisterException(
                         sprintf(
                             'Unable to delete the cookies file : %1$s',
@@ -77,11 +72,8 @@ class CookieJarPersister implements CookieJarPersisterInterface
                     );
                 }
             }
-
         } else {
-
             if (@file_put_contents($filename, $fileContent) === false) {
-
                 if (file_exists($filename)) {
                     throw new CookieJarPersisterException(
                         sprintf(
@@ -104,7 +96,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
     }
 
     /**
-     * Returns the cookies file content or false if any cookies
+     * Returns the cookies file content or false if any cookies.
      *
      * @param CookieCollectionInterface $cookies
      *
@@ -113,13 +105,12 @@ class CookieJarPersister implements CookieJarPersisterInterface
     private function generateFileOutput(
         CookieCollectionInterface $cookies
     ) {
-
         $output = '';
 
         foreach ($cookies->getCookies() as $domainCookies) {
             foreach ($domainCookies as $cookie) {
 
-                /** @var CookieInterface $cookie */
+                /* @var CookieInterface $cookie */
 
                 $domain = $cookie->getDomain();
                 $httpOnly = $cookie->isHttpOnly();
@@ -143,7 +134,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
                 }
 
                 if ($expire instanceof DateTime) {
-                    $expire = (string)$expire->getTimestamp();
+                    $expire = (string) $expire->getTimestamp();
                 } else {
                     $expire = '0';
                 }
@@ -158,7 +149,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
                         $expire,
                         $name,
                         $value,
-                    ])) . PHP_EOL;
+                    ])).PHP_EOL;
             }
         }
 
@@ -167,7 +158,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
         }
 
         return implode(PHP_EOL, array_map(function ($line) {
-            return '# ' . $line;
-        }, self::FILE_HEADERS)) . PHP_EOL . PHP_EOL . $output;
+            return '# '.$line;
+        }, self::FILE_HEADERS)).PHP_EOL.PHP_EOL.$output;
     }
 }

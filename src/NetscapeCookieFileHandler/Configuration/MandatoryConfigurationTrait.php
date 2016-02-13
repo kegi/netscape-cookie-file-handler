@@ -4,7 +4,6 @@ namespace KeGi\NetscapeCookieFileHandler\Configuration;
 
 trait MandatoryConfigurationTrait
 {
-
     /**
      * @var ConfigurationInterface
      */

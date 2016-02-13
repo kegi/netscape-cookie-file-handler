@@ -6,7 +6,6 @@ use KeGi\NetscapeCookieFileHandler\Cookie\Exception\CookieCollectionException;
 
 class CookieCollection implements CookieCollectionInterface
 {
-
     /**
      * @var array
      */
@@ -17,7 +16,6 @@ class CookieCollection implements CookieCollectionInterface
      */
     public function __construct(array $cookies = [])
     {
-
         if (!empty($cookies)) {
             $this->setCookies($cookies);
         }
@@ -34,16 +32,15 @@ class CookieCollection implements CookieCollectionInterface
     /**
      * @param array $cookies
      *
-     * @return CookieCollectionInterface
      * @throws CookieCollectionException
+     *
+     * @return CookieCollectionInterface
      */
     public function setCookies(array $cookies) : CookieCollectionInterface
     {
-
         $this->cookies = [];
 
         foreach ($cookies as $cookie) {
-
             if (!is_object($cookie)) {
                 throw new CookieCollectionException(
                     sprintf(
@@ -92,7 +89,6 @@ class CookieCollection implements CookieCollectionInterface
      */
     public function get(string $cookieName, string $domain = null)
     {
-
         if ($domain === null) {
 
             /*find the first occurence on any domain*/
@@ -103,8 +99,7 @@ class CookieCollection implements CookieCollectionInterface
                 }
             }
 
-            return null;
-
+            return;
         } else {
             return $this->cookies[$domain][$cookieName] ?? null;
         }
@@ -117,14 +112,10 @@ class CookieCollection implements CookieCollectionInterface
      */
     public function getAll(string $domain = null) : CookieCollectionInterface
     {
-
         if ($domain === null) {
-
             return $this;
-
         } else {
-
-            $collection = new CookieCollection();
+            $collection = new self();
 
             if (isset($this->cookies[$domain])) {
                 foreach ($this->cookies[$domain] as $cookie) {
@@ -139,14 +130,13 @@ class CookieCollection implements CookieCollectionInterface
     /**
      * @param CookieInterface $cookie
      *
-     * @return CookieCollectionInterface
      * @throws CookieCollectionException
+     *
+     * @return CookieCollectionInterface
      */
     public function add(
         CookieInterface $cookie
-    ) : CookieCollectionInterface
-    {
-
+    ) : CookieCollectionInterface {
         $cookieDomain = $cookie->getDomain();
         $cookieName = $cookie->getName();
 
@@ -164,11 +154,9 @@ class CookieCollection implements CookieCollectionInterface
             /*we add this cookie to all knowns domains*/
 
             foreach ($this->cookies as $domain => $cookies) {
-
                 $generatedCookie = clone $cookie;
                 $generatedCookie->setDomain($domain);
                 $this->cookies[$domain][$cookieName] = $generatedCookie;
-
             }
         } else {
             if (!isset($this->cookies[$cookieDomain])) {
@@ -189,7 +177,6 @@ class CookieCollection implements CookieCollectionInterface
      */
     public function has(string $cookieName, string $domain = null) : bool
     {
-
         if ($domain === null) {
 
             /*find this cookie for all domains*/
@@ -216,15 +203,12 @@ class CookieCollection implements CookieCollectionInterface
     public function delete(
         string $cookieName,
         string $domain = null
-    ) : CookieCollectionInterface
-    {
-
+    ) : CookieCollectionInterface {
         if ($domain === null) {
 
             /*delete this cookie for all domains*/
 
             foreach ($this->cookies as $cookieDomain => $cookies) {
-
                 if (isset($cookies[$cookieName])) {
                     unset($this->cookies[$cookieDomain][$cookieName]);
                 }
@@ -233,9 +217,7 @@ class CookieCollection implements CookieCollectionInterface
                     unset($this->cookies[$cookieDomain]);
                 }
             }
-
         } else {
-
             if (isset($this->cookies[$domain][$cookieName])) {
                 unset($this->cookies[$domain][$cookieName]);
 
@@ -255,7 +237,6 @@ class CookieCollection implements CookieCollectionInterface
      */
     public function deleteAll(string $domain = null) : CookieCollectionInterface
     {
-
         if ($domain === null) {
             $this->cookies = [];
         } else {
@@ -275,12 +256,11 @@ class CookieCollection implements CookieCollectionInterface
         $output = [];
 
         foreach ($this->cookies as $domain => $cookies) {
-
             $output[$domain] = [];
 
             foreach ($cookies as $cookieName => $cookie) {
 
-                /** @var CookieInterface $cookie */
+                /* @var CookieInterface $cookie */
 
                 $output[$domain][$cookieName] = $cookie->toArray();
             }
