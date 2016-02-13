@@ -13,7 +13,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "KeGi\\NetscapeCookieFileHandler\\Tests": ["tests/NetscapeCookieFileHandler"]
+      "KeGi\\NetscapeCookieFileHandler\\Tests\\": ["tests/NetscapeCookieFileHandler"]
     }
   }
 }
