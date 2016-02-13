@@ -61,6 +61,8 @@ class Parser implements ParserInterface
 
         $fileContent = @file_get_contents($file);
 
+        // @codeCoverageIgnoreStart
+
         if ($fileContent === false) {
             throw new ParserException(
                 sprintf(
@@ -69,6 +71,8 @@ class Parser implements ParserInterface
                 )
             );
         }
+
+        // @codeCoverageIgnoreEnd
 
         return $this->parseContent($fileContent);
     }
