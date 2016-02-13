@@ -31,7 +31,6 @@ class CookieJarPersister implements CookieJarPersisterInterface
     public function __construct(
         ConfigurationInterface $configuration
     ) {
-
         $this->setConfiguration($configuration);
     }
 
@@ -46,9 +45,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
-    ) : CookieJarPersisterInterface
-    {
-
+    ) : CookieJarPersisterInterface {
         if (empty($this->getConfiguration()->getCookieDir())) {
             throw new ParserException(
                 'You need to specify the cookieDir parameter in configurations in order to persist a file'
@@ -65,10 +62,8 @@ class CookieJarPersister implements CookieJarPersisterInterface
         $fileContent = $this->generateFileOutput($cookies);
 
         if (empty($fileContent)) {
-
             if (is_file($filename)) {
                 if (!@unlink($filename)) {
-
                     throw new CookieJarPersisterException(
                         sprintf(
                             'Unable to delete the cookies file : %1$s',
@@ -77,11 +72,8 @@ class CookieJarPersister implements CookieJarPersisterInterface
                     );
                 }
             }
-
         } else {
-
             if (@file_put_contents($filename, $fileContent) === false) {
-
                 if (file_exists($filename)) {
                     throw new CookieJarPersisterException(
                         sprintf(
@@ -113,7 +105,6 @@ class CookieJarPersister implements CookieJarPersisterInterface
     private function generateFileOutput(
         CookieCollectionInterface $cookies
     ) {
-
         $output = '';
 
         foreach ($cookies->getCookies() as $domainCookies) {

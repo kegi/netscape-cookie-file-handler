@@ -25,7 +25,6 @@ class Handler
      */
     public function __construct(ConfigurationInterface $configuration = null)
     {
-
         $this->setConfiguration($configuration);
     }
 
@@ -37,7 +36,6 @@ class Handler
      */
     public function parseFile(string $file) : CookieJar
     {
-
         return new CookieJar(
             $this->getParser()->parseFile($file),
             $this->getConfiguration(),
@@ -52,7 +50,6 @@ class Handler
      */
     public function parseContent(string $content) : CookieJar
     {
-
         return new CookieJar(
             $this->getParser()->parseContent($content),
             $this->getConfiguration()
