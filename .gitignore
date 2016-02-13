@@ -2,5 +2,4 @@
 vendor/
 build/
 tmp/*
-!tmp/.gitkeep
 /phpunit.xml
