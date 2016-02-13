@@ -22,6 +22,17 @@ class CookieCollection implements CookieCollectionInterface
 
     /**
      * @param array $cookies
+     */
+    public function __construct(array $cookies = [])
+    {
+
+        if (!empty($cookies)) {
+            $this->setCookies($cookies);
+        }
+    }
+
+    /**
+     * @param array $cookies
      *
      * @return CookieCollectionInterface
      * @throws CookieCollectionException
@@ -29,18 +40,20 @@ class CookieCollection implements CookieCollectionInterface
     public function setCookies(array $cookies) : CookieCollectionInterface
     {
 
+        $this->cookies = [];
+
         foreach ($cookies as $cookie) {
 
             if (!is_object($cookie)) {
                 throw new CookieCollectionException(
                     sprintf(
-                        'Expected CookieInterface, got : %1$s',
+                        'Expected CookieInterface object, got : %1$s',
                         gettype($cookie)
                     )
                 );
             }
 
-            if ($cookie instanceof CookieInterface) {
+            if (!($cookie instanceof CookieInterface)) {
                 throw new CookieCollectionException(
                     sprintf(
                         'Expected CookieInterface, got : %1$s',
@@ -48,9 +61,25 @@ class CookieCollection implements CookieCollectionInterface
                     )
                 );
             }
-        }
 
-        $this->cookies = $cookies;
+            if (empty($cookie->getDomain())) {
+                throw new CookieCollectionException(
+                    'You can\'t have a cookie with no domain when using setCookies'
+                );
+            }
+
+            if (empty($cookie->getName())) {
+                throw new CookieCollectionException(
+                    'You can\'t have a cookie with no name'
+                );
+            }
+
+            if (empty($cookie->getValue())) {
+                continue;
+            }
+
+            $this->add($cookie);
+        }
 
         return $this;
     }
@@ -199,12 +228,20 @@ class CookieCollection implements CookieCollectionInterface
                 if (isset($cookies[$cookieName])) {
                     unset($this->cookies[$cookieDomain][$cookieName]);
                 }
+
+                if(empty($this->cookies[$cookieDomain])){
+                    unset($this->cookies[$cookieDomain]);
+                }
             }
 
         } else {
 
             if (isset($this->cookies[$domain][$cookieName])) {
                 unset($this->cookies[$domain][$cookieName]);
+
+                if(empty($this->cookies[$domain])){
+                    unset($this->cookies[$domain]);
+                }
             }
         }
 
@@ -223,7 +260,7 @@ class CookieCollection implements CookieCollectionInterface
             $this->cookies = [];
         } else {
             if (isset($this->cookies[$domain])) {
-                $this->cookies[$domain] = [];
+                unset($this->cookies[$domain]);
             }
         }
 
