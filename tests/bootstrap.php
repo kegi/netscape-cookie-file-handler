@@ -14,5 +14,3 @@ if (!file_exists($autoloadFile)) {
 }
 
 require_once $autoloadFile;
-
-

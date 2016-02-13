@@ -12,7 +12,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieDomainParameter()
     {
-
         $domain = 'foo';
 
         $cookie = new Cookie();
@@ -30,7 +29,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieHttpOnlyParameter()
     {
-
         $cookie = new Cookie();
 
         $this->assertFalse($cookie->isHttpOnly());
@@ -52,7 +50,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookiePathParameter()
     {
-
         $path = 'foo';
 
         $cookie = new Cookie();
@@ -72,7 +69,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieSecureParameter()
     {
-
         $cookie = new Cookie();
 
         $this->assertFalse($cookie->isSecure());
@@ -94,7 +90,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieExpireParameter()
     {
-
         $expire = new DateTime();
 
         $cookie = new Cookie();
@@ -117,7 +112,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieNameParameter()
     {
-
         $name = 'foo';
 
         $cookie = new Cookie();
@@ -135,7 +129,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieValueParameter()
     {
-
         $value = 'foo';
 
         $cookie = new Cookie();
