@@ -4,12 +4,16 @@ namespace KeGi\NetscapeCookieFileHandler\Jar;
 
 use DateTime;
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
+use KeGi\NetscapeCookieFileHandler\Configuration\MandatoryConfigurationTrait;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarPersisterException;
+use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 
 class CookieJarPersister implements CookieJarPersisterInterface
 {
+
+    use MandatoryConfigurationTrait;
 
     /**
      * Cookie file header
@@ -22,11 +26,6 @@ class CookieJarPersister implements CookieJarPersisterInterface
         ];
 
     /**
-     * @var ConfigurationInterface
-     */
-    private $configuration;
-
-    /**
      * @param ConfigurationInterface $configuration
      */
     public function __construct(
@@ -37,38 +36,24 @@ class CookieJarPersister implements CookieJarPersisterInterface
     }
 
     /**
-     * @return ConfigurationInterface
-     */
-    public function getConfiguration() : ConfigurationInterface
-    {
-        return $this->configuration;
-    }
-
-    /**
-     * @param ConfigurationInterface $configuration
-     *
-     * @return CookieJarPersisterInterface
-     */
-    public function setConfiguration(ConfigurationInterface $configuration
-    ) : CookieJarPersisterInterface
-    {
-        $this->configuration = $configuration;
-
-        return $this;
-    }
-
-    /**
      * @param CookieCollectionInterface $cookies
      * @param string                    $filename
      *
      * @return CookieJarPersisterInterface
      * @throws CookieJarPersisterException
+     * @throws ParserException
      */
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
     ) : CookieJarPersisterInterface
     {
+
+        if (empty($this->getConfiguration()->getCookieDir())) {
+            throw new ParserException(
+                'You need to specify the cookieDir parameter in configurations in order to persist a file'
+            );
+        }
 
         $cookieDir = rtrim(
                 $this->getConfiguration()->getCookieDir(),

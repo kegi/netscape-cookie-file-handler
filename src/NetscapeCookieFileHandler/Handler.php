@@ -3,6 +3,7 @@
 namespace KeGi\NetscapeCookieFileHandler;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
+use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationTrait;
 use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJar;
 use KeGi\NetscapeCookieFileHandler\Parser\Parser;
@@ -10,10 +11,7 @@ use KeGi\NetscapeCookieFileHandler\Parser\Parser;
 class Handler
 {
 
-    /**
-     * @var ConfigurationInterface
-     */
-    private $configuration;
+    use ConfigurationTrait;
 
     /**
      * @var Parser
@@ -25,7 +23,7 @@ class Handler
      *
      * @param ConfigurationInterface $configuration
      */
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(ConfigurationInterface $configuration = null)
     {
 
         $this->setConfiguration($configuration);
@@ -41,8 +39,8 @@ class Handler
     {
 
         return new CookieJar(
-            $this->getConfiguration(),
             $this->getParser()->parseFile($file),
+            $this->getConfiguration(),
             $file
         );
     }
@@ -56,8 +54,8 @@ class Handler
     {
 
         return new CookieJar(
-            $this->getConfiguration(),
-            $this->getParser()->parseContent($content)
+            $this->getParser()->parseContent($content),
+            $this->getConfiguration()
         );
     }
 

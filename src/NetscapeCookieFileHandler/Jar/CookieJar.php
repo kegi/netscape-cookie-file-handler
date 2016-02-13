@@ -3,6 +3,7 @@
 namespace KeGi\NetscapeCookieFileHandler\Jar;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
+use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationTrait;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
@@ -10,10 +11,7 @@ use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
 class CookieJar implements CookieJarInterface
 {
 
-    /**
-     * @var ConfigurationInterface
-     */
-    private $configuration;
+    use ConfigurationTrait;
 
     /**
      * @var CookieCollectionInterface
@@ -31,40 +29,19 @@ class CookieJar implements CookieJarInterface
     private $persister;
 
     /**
-     * @param ConfigurationInterface    $configuration
-     * @param CookieCollectionInterface $cookies
-     * @param string|null               $cookiesFile
+     * @param CookieCollectionInterface   $cookies
+     * @param ConfigurationInterface|null $configuration
+     * @param string|null                 $cookiesFile
      */
     public function __construct(
-        ConfigurationInterface $configuration,
         CookieCollectionInterface $cookies,
+        ConfigurationInterface $configuration = null,
         string $cookiesFile = null
     ) {
 
         $this->setConfiguration($configuration);
         $this->setCookies($cookies);
         $this->setCookiesFile($cookiesFile);
-    }
-
-    /**
-     * @return ConfigurationInterface
-     */
-    public function getConfiguration() : ConfigurationInterface
-    {
-        return $this->configuration;
-    }
-
-    /**
-     * @param ConfigurationInterface $configuration
-     *
-     * @return CookieJarInterface
-     */
-    public function setConfiguration(ConfigurationInterface $configuration
-    ) : CookieJarInterface
-    {
-        $this->configuration = $configuration;
-
-        return $this;
     }
 
     /**
@@ -206,9 +183,16 @@ class CookieJar implements CookieJarInterface
 
     /**
      * @return CookieJarPersisterInterface
+     * @throws CookieJarException
      */
     public function getPersister() : CookieJarPersisterInterface
     {
+
+        if (!($this->getConfiguration() instanceof ConfigurationInterface)) {
+            throw new CookieJarException(
+                'When the CookieJar is linked with a file, you need to inject configurations'
+            );
+        }
 
         return $this->persister ??
         new CookieJarPersister($this->getConfiguration());

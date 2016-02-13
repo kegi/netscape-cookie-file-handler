@@ -4,6 +4,7 @@ namespace KeGi\NetscapeCookieFileHandler\Parser;
 
 use DateTime;
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
+use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationTrait;
 use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollection;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
@@ -12,42 +13,15 @@ use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 class Parser implements ParserInterface
 {
 
-    /**
-     * @var ConfigurationInterface
-     */
-    private $configuration;
+    use ConfigurationTrait;
 
     /**
-     * @param ConfigurationInterface $configuration
+     * @param ConfigurationInterface|null $configuration
      */
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(ConfigurationInterface $configuration = null)
     {
 
         $this->setConfiguration($configuration);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     *
-     * @return ConfigurationInterface
-     */
-    public function getConfiguration() : ConfigurationInterface
-    {
-        return $this->configuration;
-    }
-
-    /**
-     * @codeCoverageIgnore
-     *
-     * @param ConfigurationInterface $configuration
-     *
-     * @return $this
-     */
-    public function setConfiguration(ConfigurationInterface $configuration)
-    {
-        $this->configuration = $configuration;
-
-        return $this;
     }
 
     /**
@@ -58,6 +32,18 @@ class Parser implements ParserInterface
      */
     public function parseFile(string $file) : CookieCollectionInterface
     {
+
+        if (!($this->getConfiguration() instanceof ConfigurationInterface)) {
+            throw new ParserException(
+                'You need to inject configurations in order to parse a file'
+            );
+        }
+
+        if (empty($this->getConfiguration()->getCookieDir())) {
+            throw new ParserException(
+                'You need to specify the cookieDir parameter in configurations in order to parse a file'
+            );
+        }
 
         $cookieDir = rtrim(
                 $this->getConfiguration()->getCookieDir(),
