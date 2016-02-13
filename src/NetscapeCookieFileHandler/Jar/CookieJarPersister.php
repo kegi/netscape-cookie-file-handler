@@ -125,8 +125,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
      *
      * @return string|bool
      */
-    private
-    function generateFileOutput(
+    private function generateFileOutput(
         CookieCollectionInterface $cookies
     ) {
 
