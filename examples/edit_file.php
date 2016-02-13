@@ -2,8 +2,8 @@
 
 use KeGi\NetscapeCookieFileHandler\Configuration\Configuration;
 use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
+use KeGi\NetscapeCookieFileHandler\CookieFileHandler;
 use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
-use KeGi\NetscapeCookieFileHandler\Handler;
 
 require_once 'includes/example_includes.php';
 
@@ -21,7 +21,7 @@ try {
 
     $configuration = (new Configuration())->setCookieDir(COOKIES_DIR);
     $cookieJar
-        = (new Handler($configuration))->parseFile(EXAMPLE_COPY_FILE_NAME);
+        = (new CookieFileHandler($configuration))->parseFile(EXAMPLE_COPY_FILE_NAME);
     $nbCookies = countCookies($cookieJar->getAll()->toArray());
 
     $cookieJar->add(
