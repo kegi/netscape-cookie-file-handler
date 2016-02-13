@@ -188,6 +188,8 @@ class CookieJar implements CookieJarInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param CookieJarPersisterInterface $persister
      *
      * @return CookieJarInterface

@@ -67,6 +67,8 @@ class CookieFileHandler implements CookieFileHandlerInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param ParserInterface $parser
      *
      * @return CookieFileHandlerInterface
