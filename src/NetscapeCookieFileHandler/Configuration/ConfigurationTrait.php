@@ -2,8 +2,6 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Configuration;
 
-use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
-
 trait ConfigurationTrait
 {
 
