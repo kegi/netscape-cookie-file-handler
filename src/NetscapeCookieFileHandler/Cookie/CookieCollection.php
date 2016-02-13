@@ -13,14 +13,6 @@ class CookieCollection implements CookieCollectionInterface
     private $cookies = [];
 
     /**
-     * @return array
-     */
-    public function getCookies()
-    {
-        return $this->cookies;
-    }
-
-    /**
      * @param array $cookies
      */
     public function __construct(array $cookies = [])
@@ -29,6 +21,14 @@ class CookieCollection implements CookieCollectionInterface
         if (!empty($cookies)) {
             $this->setCookies($cookies);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getCookies()
+    {
+        return $this->cookies;
     }
 
     /**
@@ -229,7 +229,7 @@ class CookieCollection implements CookieCollectionInterface
                     unset($this->cookies[$cookieDomain][$cookieName]);
                 }
 
-                if(empty($this->cookies[$cookieDomain])){
+                if (empty($this->cookies[$cookieDomain])) {
                     unset($this->cookies[$cookieDomain]);
                 }
             }
@@ -239,7 +239,7 @@ class CookieCollection implements CookieCollectionInterface
             if (isset($this->cookies[$domain][$cookieName])) {
                 unset($this->cookies[$domain][$cookieName]);
 
-                if(empty($this->cookies[$domain])){
+                if (empty($this->cookies[$domain])) {
                     unset($this->cookies[$domain]);
                 }
             }
