@@ -4,6 +4,7 @@ namespace KeGi\NetscapeCookieFileHandler;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationTrait;
+use KeGi\NetscapeCookieFileHandler\Jar\CookieJarInterface;
 use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJar;
 use KeGi\NetscapeCookieFileHandler\Parser\Parser;
@@ -32,10 +33,10 @@ class CookieFileHandler implements CookieFileHandlerInterface
     /**
      * @param string $file
      *
-     * @return CookieJar
+     * @return CookieJarInterface
      * @throws ParserException
      */
-    public function parseFile(string $file) : CookieJar
+    public function parseFile(string $file) : CookieJarInterface
     {
         return new CookieJar(
             $this->getParser()->parseFile($file),
@@ -47,9 +48,9 @@ class CookieFileHandler implements CookieFileHandlerInterface
     /**
      * @param string $content
      *
-     * @return CookieJar
+     * @return CookieJarInterface
      */
-    public function parseContent(string $content) : CookieJar
+    public function parseContent(string $content) : CookieJarInterface
     {
         return new CookieJar(
             $this->getParser()->parseContent($content),
@@ -60,7 +61,7 @@ class CookieFileHandler implements CookieFileHandlerInterface
     /**
      * @return ParserInterface
      */
-    public function getParser()
+    public function getParser() : ParserInterface
     {
         return $this->parser ?? new Parser($this->getConfiguration());
     }
@@ -68,9 +69,9 @@ class CookieFileHandler implements CookieFileHandlerInterface
     /**
      * @param ParserInterface $parser
      *
-     * @return HandlerInterface
+     * @return CookieFileHandlerInterface
      */
-    public function setParser(ParserInterface $parser) : HandlerInterface
+    public function setParser(ParserInterface $parser) : CookieFileHandlerInterface
     {
         $this->parser = $parser;
 

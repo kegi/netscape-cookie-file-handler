@@ -34,5 +34,5 @@ interface CookieFileHandlerInterface extends HasConfigurationInterface
      *
      * @return self
      */
-    public function setParser(ParserInterface $parser) : HandlerInterface;
+    public function setParser(ParserInterface $parser) : CookieFileHandlerInterface;
 }
