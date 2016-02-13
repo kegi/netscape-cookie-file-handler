@@ -18,8 +18,6 @@ class Parser implements ParserInterface
     private $configuration;
 
     /**
-     * Handler constructor.
-     *
      * @param ConfigurationInterface $configuration
      */
     public function __construct(ConfigurationInterface $configuration)
@@ -29,6 +27,8 @@ class Parser implements ParserInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @return ConfigurationInterface
      */
     public function getConfiguration() : ConfigurationInterface
@@ -37,6 +37,8 @@ class Parser implements ParserInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param ConfigurationInterface $configuration
      *
      * @return $this
@@ -103,7 +105,7 @@ class Parser implements ParserInterface
 
             $line = trim($line);
 
-            if(isset($line[0]) && $line[0] === '#'){
+            if (isset($line[0]) && $line[0] === '#') {
                 continue;
             }
 
