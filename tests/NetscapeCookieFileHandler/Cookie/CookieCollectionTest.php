@@ -31,6 +31,8 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
         $cookieCollection = $cookieCollection->setCookies($cookies);
 
+        /** @var CookieCollectionInterface $cookieCollection */
+
         /*set cookie return this*/
 
         $this->assertTrue(
