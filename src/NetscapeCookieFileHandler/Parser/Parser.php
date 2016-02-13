@@ -12,7 +12,6 @@ use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 
 class Parser implements ParserInterface
 {
-
     use ConfigurationTrait;
 
     /**
@@ -20,19 +19,18 @@ class Parser implements ParserInterface
      */
     public function __construct(ConfigurationInterface $configuration = null)
     {
-
         $this->setConfiguration($configuration);
     }
 
     /**
      * @param string $file
      *
-     * @return CookieCollectionInterface
      * @throws ParserException
+     *
+     * @return CookieCollectionInterface
      */
     public function parseFile(string $file) : CookieCollectionInterface
     {
-
         if (!($this->getConfiguration() instanceof ConfigurationInterface)) {
             throw new ParserException(
                 'You need to inject configurations in order to parse a file'
@@ -48,9 +46,9 @@ class Parser implements ParserInterface
         $cookieDir = rtrim(
                 $this->getConfiguration()->getCookieDir(),
                 DIRECTORY_SEPARATOR
-            ) . DIRECTORY_SEPARATOR;
+            ).DIRECTORY_SEPARATOR;
 
-        $file = $cookieDir . $file;
+        $file = $cookieDir.$file;
 
         if (!is_file($file)) {
             throw new ParserException(
@@ -64,7 +62,6 @@ class Parser implements ParserInterface
         $fileContent = @file_get_contents($file);
 
         if ($fileContent === false) {
-
             throw new ParserException(
                 sprintf(
                     'Unable to read file : %1$s',
@@ -82,13 +79,10 @@ class Parser implements ParserInterface
      * @return CookieCollectionInterface
      */
     public function parseContent(string $filecontent
-    ) : CookieCollectionInterface
-    {
-
+    ) : CookieCollectionInterface {
         $cookies = new CookieCollection();
 
         foreach (explode("\n", $filecontent) as $line) {
-
             $line = trim($line);
 
             if (isset($line[0]) && $line[0] === '#') {
@@ -104,7 +98,7 @@ class Parser implements ParserInterface
             $expire = empty($cookieData[4]) ? null : $cookieData[4];
 
             if (preg_match('#^[0-9]+$#i', $expire)) {
-                $expire = new DateTime(date('Y-m-d H:i:s', (int)$expire));
+                $expire = new DateTime(date('Y-m-d H:i:s', (int) $expire));
             }
 
             $cookies->add(

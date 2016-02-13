@@ -16,8 +16,7 @@ class NetscapeCookieFileHandlerException extends Exception
         $code = 0,
         Exception $previous = null
     ) {
-
-        $message = 'NetscapeCookieFileHandlerException : ' . $message;
+        $message = 'NetscapeCookieFileHandlerException : '.$message;
 
         parent::__construct($message, $code, $previous);
     }

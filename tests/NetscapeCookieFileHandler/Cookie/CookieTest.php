@@ -9,10 +9,8 @@ use PHPUnit_Framework_TestCase;
 
 class CookieTest extends PHPUnit_Framework_TestCase
 {
-
     public function testCookieDomainParameter()
     {
-
         $domain = 'foo';
 
         $cookie = new Cookie();
@@ -30,7 +28,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieHttpOnlyParameter()
     {
-
         $cookie = new Cookie();
 
         $this->assertFalse($cookie->isHttpOnly());
@@ -45,14 +42,12 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($cookie->isHttpOnly());
 
         /** @var CookieInterface $cookie */
-
         $cookie = $cookie->setHttpOnly(false);
         $this->assertFalse($cookie->isHttpOnly());
     }
 
     public function testCookiePathParameter()
     {
-
         $path = 'foo';
 
         $cookie = new Cookie();
@@ -65,14 +60,13 @@ class CookieTest extends PHPUnit_Framework_TestCase
             'setPath need to return CookieInterface'
         );
 
-        /** @var CookieInterface $cookie */
+        /* @var CookieInterface $cookie */
 
         $this->assertEquals($path, $cookie->getPath());
     }
 
     public function testCookieSecureParameter()
     {
-
         $cookie = new Cookie();
 
         $this->assertFalse($cookie->isSecure());
@@ -87,14 +81,12 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($cookie->isSecure());
 
         /** @var CookieInterface $cookie */
-
         $cookie = $cookie->setSecure(false);
         $this->assertFalse($cookie->isSecure());
     }
 
     public function testCookieExpireParameter()
     {
-
         $expire = new DateTime();
 
         $cookie = new Cookie();
@@ -110,14 +102,12 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expire, $cookie->getExpire());
 
         /** @var CookieInterface $cookie */
-
         $cookie = $cookie->setExpire(null);
         $this->assertEquals(null, $cookie->getExpire());
     }
 
     public function testCookieNameParameter()
     {
-
         $name = 'foo';
 
         $cookie = new Cookie();
@@ -135,7 +125,6 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
     public function testCookieValueParameter()
     {
-
         $value = 'foo';
 
         $cookie = new Cookie();

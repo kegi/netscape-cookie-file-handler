@@ -9,14 +9,14 @@ use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 
 interface CookieJarPersisterInterface extends HasMandatoryConfigurationInterface
 {
-
     /**
      * @param CookieCollectionInterface $cookies
      * @param string                    $filename
      *
-     * @return self
      * @throws CookieJarPersisterException
      * @throws ParserException
+     *
+     * @return self
      */
     public function persist(
         CookieCollectionInterface $cookies,

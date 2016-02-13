@@ -2,19 +2,17 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Test\Cookie;
 
-use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
-use PHPUnit_Framework_TestCase;
 use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollection;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
+use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\Exception\CookieCollectionException;
+use PHPUnit_Framework_TestCase;
 
 class CookieCollectionTest extends PHPUnit_Framework_TestCase
 {
-
     public function testSetCookies()
     {
-
         $cookieCollection = new CookieCollection();
 
         /*default value : empty cookie*/
@@ -24,14 +22,14 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
         $cookies = [
             (new Cookie())
                 ->setDomain('foo.bar')
-                ->setName('foo')
+                ->setName('foo'),
         ];
 
-        /** @var CookieInterface[] $cookies */
+        /* @var CookieInterface[] $cookies */
 
         $cookieCollection = $cookieCollection->setCookies($cookies);
 
-        /** @var CookieCollectionInterface $cookieCollection */
+        /* @var CookieCollectionInterface $cookieCollection */
 
         /*set cookie return this*/
 
@@ -66,31 +64,28 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testNoDomainSetCookie()
     {
-
         $this->expectException(CookieCollectionException::class);
 
         $cookieCollection = new CookieCollection();
         $cookieCollection->setCookies([
             (new Cookie())
-                ->setName('foo')
+                ->setName('foo'),
         ]);
     }
 
     public function testNoNameSetCookie()
     {
-
         $this->expectException(CookieCollectionException::class);
 
         $cookieCollection = new CookieCollection();
         $cookieCollection->setCookies([
             (new Cookie())
-                ->setDomain('foo.bar')
+                ->setDomain('foo.bar'),
         ]);
     }
 
     public function testGet()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')
@@ -109,7 +104,7 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
         $cookieCollection = new CookieCollection([
             $cookie1,
             $cookie2,
-            $cookie3
+            $cookie3,
         ]);
 
         $this->assertNull($cookieCollection->get('fake_cookie_name'));
@@ -140,7 +135,7 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
         $comparativeCollection = new CookieCollection([
             $cookie2,
-            $cookie3
+            $cookie3,
         ]);
 
         $this->assertEquals($allDomain2, $comparativeCollection);
@@ -148,7 +143,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testAddAndHas()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')
@@ -170,7 +164,7 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
         $cookieCollection = new CookieCollection([
             $cookie1,
-            $cookie2
+            $cookie2,
         ]);
 
         /*cookie3 should only be added to domain1.dev*/
@@ -217,7 +211,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')
@@ -276,7 +269,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteAll()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')

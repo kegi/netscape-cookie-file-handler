@@ -9,7 +9,6 @@ use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
 
 interface CookieJarInterface extends HasConfigurationInterface
 {
-
     /**
      * @return CookieCollectionInterface
      */
@@ -86,8 +85,9 @@ interface CookieJarInterface extends HasConfigurationInterface
     public function deleteAll(string $domain = null) : CookieJarInterface;
 
     /**
-     * @return CookieJarPersisterInterface
      * @throws CookieJarException
+     *
+     * @return CookieJarPersisterInterface
      */
     public function getPersister() : CookieJarPersisterInterface;
 

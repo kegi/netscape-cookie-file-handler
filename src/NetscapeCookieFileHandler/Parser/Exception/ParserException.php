@@ -17,8 +17,7 @@ class ParserException extends NetscapeCookieFileHandlerException
         $code = 0,
         Exception $previous = null
     ) {
-
-        $message = 'Parser : ' . $message;
+        $message = 'Parser : '.$message;
 
         parent::__construct($message, $code, $previous);
     }
