@@ -4,11 +4,16 @@
     "php": ">=7.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4"
+    "phpunit/phpunit": "^5.2"
   },
   "autoload": {
     "psr-4": {
       "KeGi\\NetscapeCookieFileHandler\\": "src/NetscapeCookieFileHandler"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "KeGi\\NetscapeCookieFileHandler\\Tests": ["tests/NetscapeCookieFileHandler"]
     }
   }
 }
