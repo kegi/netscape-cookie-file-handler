@@ -50,14 +50,10 @@ try {
             EXAMPLE_FILE_NAME,
             EXAMPLE_COPY_FILE_NAME
         ) . PHP_EOL . PHP_EOL;
-
 } catch (NetscapeCookieFileHandlerException $e) {
-
     echo 'Handler Exception :' . PHP_EOL . PHP_EOL;
     echo $e->getMessage();
-
 } catch (Exception $e) {
-
     echo 'An exception occured :' . PHP_EOL . PHP_EOL;
     echo $e->getMessage();
 }

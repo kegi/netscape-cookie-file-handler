@@ -187,7 +187,6 @@ class Cookie implements CookieInterface
      */
     public function toArray() : array
     {
-
         return [
             'domain' => $this->getDomain(),
             'httpOnly' => $this->isHttpOnly(),
@@ -204,7 +203,6 @@ class Cookie implements CookieInterface
      */
     public function jsonSerialize() : array
     {
-
         return $this->toArray();
     }
 }

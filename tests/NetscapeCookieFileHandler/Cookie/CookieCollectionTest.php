@@ -14,7 +14,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testSetCookies()
     {
-
         $cookieCollection = new CookieCollection();
 
         /*default value : empty cookie*/
@@ -66,7 +65,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testNoDomainSetCookie()
     {
-
         $this->expectException(CookieCollectionException::class);
 
         $cookieCollection = new CookieCollection();
@@ -78,7 +76,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testNoNameSetCookie()
     {
-
         $this->expectException(CookieCollectionException::class);
 
         $cookieCollection = new CookieCollection();
@@ -90,7 +87,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testGet()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')
@@ -148,7 +144,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testAddAndHas()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')
@@ -217,7 +212,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')
@@ -276,7 +270,6 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteAll()
     {
-
         $cookie1 = (new Cookie())
             ->setDomain('domain1.dev')
             ->setName('cookie1')
