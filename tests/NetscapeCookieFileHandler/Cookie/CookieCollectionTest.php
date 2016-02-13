@@ -2,8 +2,9 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Test\Cookie;
 
-use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use PHPUnit_Framework_TestCase;
+use stdClass;
+use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollection;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
@@ -61,6 +62,26 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
         $this->assertContains($cookies[1],
             $cookieReturnes[$cookies[1]->getDomain()]);
+    }
+
+    public function testWrongVariableTypeSetCookie()
+    {
+        $this->expectException(CookieCollectionException::class);
+
+        $cookieCollection = new CookieCollection();
+        $cookieCollection->setCookies([
+            'not_supported'
+        ]);
+    }
+
+    public function testWrongObjectSetCookie()
+    {
+        $this->expectException(CookieCollectionException::class);
+
+        $cookieCollection = new CookieCollection();
+        $cookieCollection->setCookies([
+            new stdClass()
+        ]);
     }
 
     public function testNoDomainSetCookie()
@@ -199,6 +220,7 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
         /*test has*/
 
+        $this->assertFalse($cookieCollection->has('do_not_exists'));
         $this->assertTrue($cookieCollection->has($cookie1->getName()));
         $this->assertTrue($cookieCollection->has($cookie1->getName(),
             $cookie1->getDomain()));
@@ -208,6 +230,18 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
             $cookie1->getDomain()));
         $this->assertTrue($cookieCollection->has($cookie4->getName(),
             $cookie2->getDomain()));
+    }
+
+    public function testAddNoDomainEmptyCollection()
+    {
+        $this->expectException(CookieCollectionException::class);
+
+        $collection = new CookieCollection();
+        $collection->add(
+            (new Cookie())
+                ->setName('foo')
+                ->setValue('bar')
+        );
     }
 
     public function testDelete()
