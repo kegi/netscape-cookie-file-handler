@@ -123,7 +123,6 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
      */
     private function getCookieJar() : CookieJarInterface
     {
-
         $handler = new CookieFileHandler(
             (new Configuration())->setCookieDir(CookieFileHandlerTest::COOKIE_PATH)
         );
