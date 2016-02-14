@@ -1,5 +1,5 @@
 # Netscape Cookie File Handler
-
+[![Build Status](https://travis-ci.org/kegi/netscape-cookie-file-handler.svg?branch=master)](https://travis-ci.org/kegi/netscape-cookie-file-handler)
 [![StyleCI](https://styleci.io/repos/51558850/shield)](https://styleci.io/repos/51558850)
 [![Code Climate](https://codeclimate.com/github/kegi/netscape-cookie-file-handler/badges/gpa.svg)](https://codeclimate.com/github/kegi/netscape-cookie-file-handler)
 [![Issue Count](https://codeclimate.com/github/kegi/netscape-cookie-file-handler/badges/issue_count.svg)](https://codeclimate.com/github/kegi/netscape-cookie-file-handler)
