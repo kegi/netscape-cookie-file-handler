@@ -13,12 +13,19 @@ use KeGi\NetscapeCookieFileHandler\Cookie\Exception\CookieCollectionException;
 class CookieCollectionTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testSetCookies()
+    public function testCookieCollectionInterface()
     {
         $cookieCollection = new CookieCollection();
 
-        /*default value : empty cookie*/
+        $this->assertTrue(
+            ($cookieCollection instanceof CookieCollectionInterface),
+            'CookieCollection class need to implement CookieCollectionInterface'
+        );
+    }
 
+    public function testSetCookies()
+    {
+        $cookieCollection = new CookieCollection();
         $this->assertEquals([], $cookieCollection->getCookies());
 
         $cookies = [
@@ -29,18 +36,9 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
         /** @var CookieInterface[] $cookies */
 
-        $cookieCollection = $cookieCollection->setCookies($cookies);
+        $cookieCollection->setCookies($cookies);
 
-        /** @var CookieCollectionInterface $cookieCollection */
-
-        /*set cookie return this*/
-
-        $this->assertTrue(
-            ($cookieCollection instanceof CookieCollectionInterface),
-            'setCookies need to return CookieCollectionInterface'
-        );
-
-        /*we don't expect the cookie because the value Was empty*/
+        /*we don't expect the cookie because the value was empty*/
 
         $this->assertEquals([], $cookieCollection->getCookies());
 
@@ -130,11 +128,15 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
         ]);
 
         $this->assertNull($cookieCollection->get('fake_cookie_name'));
+
         $this->assertEquals($cookie1, $cookieCollection->get('cookie1'));
+
         $this->assertEquals($cookie2,
             $cookieCollection->get('cookie1', 'domain2.dev'));
+
         $this->assertEquals($cookie3,
             $cookieCollection->get('cookie2', 'domain2.dev'));
+
         $this->assertEquals($cookieCollection, $cookieCollection->getAll());
 
         /*getAll tests*/
@@ -143,14 +145,13 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(
             ($allFakeDomain instanceof CookieCollectionInterface),
-            'getAll always need to return a collection of cookies, even if the domains doesn\'t exists'
+            'getAll always need to return a collection of cookies, even if there is no domain'
         );
 
         $allDomain2 = $cookieCollection->getAll('domain2.dev');
 
         $this->assertTrue(
-            ($allDomain2 instanceof CookieCollectionInterface),
-            'getAll always need to return a collection of cookies'
+            ($allDomain2 instanceof CookieCollectionInterface)
         );
 
         $this->assertEquals($cookie3, $cookieCollection->get('cookie2'));
@@ -221,13 +222,18 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
         /*test has*/
 
         $this->assertFalse($cookieCollection->has('do_not_exists'));
+
         $this->assertTrue($cookieCollection->has($cookie1->getName()));
+
         $this->assertTrue($cookieCollection->has($cookie1->getName(),
             $cookie1->getDomain()));
+
         $this->assertFalse($cookieCollection->has($cookie1->getName(),
             $cookie2->getDomain()));
+
         $this->assertTrue($cookieCollection->has($cookie4->getName(),
             $cookie1->getDomain()));
+
         $this->assertTrue($cookieCollection->has($cookie4->getName(),
             $cookie2->getDomain()));
     }

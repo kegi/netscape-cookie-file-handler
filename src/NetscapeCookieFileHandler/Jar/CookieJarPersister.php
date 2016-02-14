@@ -45,9 +45,10 @@ class CookieJarPersister implements CookieJarPersisterInterface
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
-    ) : CookieJarPersisterInterface {
+    ) : CookieJarPersisterInterface
+    {
         if (empty($this->getConfiguration()->getCookieDir())) {
-            throw new ParserException(
+            throw new CookieJarPersisterException(
                 'You need to specify the cookieDir parameter in configurations in order to persist a file'
             );
         }
@@ -61,8 +62,11 @@ class CookieJarPersister implements CookieJarPersisterInterface
 
         $fileContent = $this->generateFileOutput($cookies);
 
+        // @codeCoverageIgnoreStart
+
         if (empty($fileContent)) {
             if (is_file($filename)) {
+
                 if (!@unlink($filename)) {
                     throw new CookieJarPersisterException(
                         sprintf(
@@ -92,6 +96,8 @@ class CookieJarPersister implements CookieJarPersisterInterface
             }
         }
 
+        // @codeCoverageIgnoreEnd
+
         return $this;
     }
 
@@ -119,10 +125,6 @@ class CookieJarPersister implements CookieJarPersisterInterface
                 $expire = $cookie->getExpire();
                 $name = $cookie->getName();
                 $value = $cookie->getValue();
-
-                if (empty($domain) || empty($name) || empty($value)) {
-                    continue;
-                }
 
                 /*format data for output*/
 

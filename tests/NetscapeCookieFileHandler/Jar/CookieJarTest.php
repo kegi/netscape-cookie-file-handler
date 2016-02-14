@@ -2,6 +2,8 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Tests\Jar;
 
+use KeGi\NetscapeCookieFileHandler\Jar\CookieJar;
+use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
 use KeGi\NetscapeCookieFileHandler\Configuration\Configuration;
 use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollection;
@@ -9,36 +11,34 @@ use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\CookieFileHandler;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJarInterface;
-use KeGi\NetscapeCookieFileHandler\Tests\Parser\ParserTest;
+use KeGi\NetscapeCookieFileHandler\Tests\CookieFileHandlerTest;
 use PHPUnit_Framework_TestCase;
 
 class CookieJarTest extends PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Test cookie file that we'll used to test the cookie jar
-     */
-    const COOKIE_TEST_FILE_NAME = 'example_test.txt';
-
-    /**
-     * full path test cookie file
-     */
-    const COOKIE_TEST_FILE
-        = ParserTest::COOKIE_PATH . DIRECTORY_SEPARATOR
-        . self::COOKIE_TEST_FILE_NAME;
-
     public function setUp()
     {
-        copy(ParserTest::COOKIE_FILE, self::COOKIE_TEST_FILE);
+        copy(CookieFileHandlerTest::COOKIE_FILE,
+            CookieFileHandlerTest::COOKIE_TEST_FILE);
     }
 
     public function tearDown()
     {
-        if (file_exists(self::COOKIE_TEST_FILE)) {
-            unlink(self::COOKIE_TEST_FILE);
+        if (file_exists(CookieFileHandlerTest::COOKIE_TEST_FILE)) {
+            unlink(CookieFileHandlerTest::COOKIE_TEST_FILE);
         }
 
         parent::tearDown();
+    }
+
+    public function testCookieJarInterface()
+    {
+        $jar = new CookieJar(new CookieCollection());
+
+        $this->assertTrue(
+            $jar instanceof CookieJarInterface,
+            'CookieJar class need to implement CookieJarInterface'
+        );
     }
 
     public function testGetterSetterCookiesFile()
@@ -49,6 +49,13 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
         $cookieJar->setCookiesFile($file);
 
         $this->assertEquals($file, $cookieJar->getCookiesFile());
+    }
+
+    public function testGetPersisterWithoutConfig()
+    {
+        $this->expectException(CookieJarException::class);
+
+        (new CookieJar(new CookieCollection()))->getPersister();
     }
 
     public function testGetterSetterCookies()
@@ -91,6 +98,9 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
         $cookieJar = $this->getCookieJar();
         $this->assertTrue($cookieJar->has($cookieName, $cookieDomain));
 
+        /*compare files with expected result*/
+        //todo : implement this test
+
         /*test delete*/
 
         $cookieJar->delete($cookieName);
@@ -101,6 +111,13 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($cookieJar->has($cookieName, $cookieDomain));
     }
 
+    public function testDeleteAll()
+    {
+        $cookieJar = $this->getCookieJar();
+        $cookieJar->deleteAll();
+        $this->assertFalse(file_exists(CookieFileHandlerTest::COOKIE_TEST_FILE));
+    }
+
     /**
      * @return CookieJarInterface
      */
@@ -108,9 +125,9 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
     {
 
         $handler = new CookieFileHandler(
-            (new Configuration())->setCookieDir(ParserTest::COOKIE_PATH)
+            (new Configuration())->setCookieDir(CookieFileHandlerTest::COOKIE_PATH)
         );
 
-        return $handler->parseFile(self::COOKIE_TEST_FILE_NAME);
+        return $handler->parseFile(CookieFileHandlerTest::COOKIE_TEST_FILE_NAME);
     }
 }

@@ -9,22 +9,26 @@ use PHPUnit_Framework_TestCase;
 class ConfigurationTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testConfigurationInterface()
+    {
+        $configuration = new Configuration();
+
+        $this->assertTrue(
+            ($configuration instanceof ConfigurationInterface),
+            'Configuration class need to implement ConfigurationInterface'
+        );
+    }
+
     public function testCookieDirParameterTest()
     {
         $dir = 'foo';
 
         $configuration = new Configuration();
-        $configuration = $configuration->setCookieDir($dir);
-
-        $this->assertTrue(
-            ($configuration instanceof ConfigurationInterface),
-            'setCookieDir need to return ConfigurationInterface'
-        );
+        $configuration->setCookieDir($dir);
 
         $this->assertEquals(
             $dir,
-            $configuration->getCookieDir(),
-            'holy cow'
+            $configuration->getCookieDir()
         );
     }
 }

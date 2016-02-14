@@ -10,6 +10,16 @@ use PHPUnit_Framework_TestCase;
 class CookieTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testCookieInterface()
+    {
+        $cookie = new Cookie();
+
+        $this->assertTrue(
+            ($cookie instanceof CookieInterface),
+            'Cookie class need to implement CookieInterface'
+        );
+    }
+
     public function testCookieDomainParameter()
     {
         $domain = 'foo';
@@ -17,32 +27,17 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $cookie = new Cookie();
         $this->assertEquals(null, $cookie->getDomain());
 
-        $cookie = $cookie->setDomain($domain);
-
-        $this->assertTrue(
-            ($cookie instanceof CookieInterface),
-            'setDomain need to return CookieInterface'
-        );
-
+        $cookie->setDomain($domain);
         $this->assertEquals($domain, $cookie->getDomain());
     }
 
     public function testCookieHttpOnlyParameter()
     {
         $cookie = new Cookie();
-
         $this->assertFalse($cookie->isHttpOnly());
 
-        $cookie = $cookie->setHttpOnly(true);
-
-        $this->assertTrue(
-            ($cookie instanceof CookieInterface),
-            'setHttpOnly need to return CookieInterface'
-        );
-
+        $cookie->setHttpOnly(true);
         $this->assertTrue($cookie->isHttpOnly());
-
-        /** @var CookieInterface $cookie */
 
         $cookie = $cookie->setHttpOnly(false);
         $this->assertFalse($cookie->isHttpOnly());
@@ -55,36 +50,19 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $cookie = new Cookie();
         $this->assertEquals('/', $cookie->getPath());
 
-        $cookie = $cookie->setPath($path);
-
-        $this->assertTrue(
-            ($cookie instanceof CookieInterface),
-            'setPath need to return CookieInterface'
-        );
-
-        /** @var CookieInterface $cookie */
-
+        $cookie->setPath($path);
         $this->assertEquals($path, $cookie->getPath());
     }
 
     public function testCookieSecureParameter()
     {
         $cookie = new Cookie();
-
         $this->assertFalse($cookie->isSecure());
 
-        $cookie = $cookie->setSecure(true);
-
-        $this->assertTrue(
-            ($cookie instanceof CookieInterface),
-            'setSecure need to return CookieInterface'
-        );
-
+        $cookie->setSecure(true);
         $this->assertTrue($cookie->isSecure());
 
-        /** @var CookieInterface $cookie */
-
-        $cookie = $cookie->setSecure(false);
+        $cookie->setSecure(false);
         $this->assertFalse($cookie->isSecure());
     }
 
@@ -95,18 +73,10 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $cookie = new Cookie();
         $this->assertEquals(null, $cookie->getExpire());
 
-        $cookie = $cookie->setExpire($expire);
-
-        $this->assertTrue(
-            ($cookie instanceof CookieInterface),
-            'setExpire need to return CookieInterface'
-        );
-
+        $cookie->setExpire($expire);
         $this->assertEquals($expire, $cookie->getExpire());
 
-        /** @var CookieInterface $cookie */
-
-        $cookie = $cookie->setExpire(null);
+        $cookie->setExpire(null);
         $this->assertEquals(null, $cookie->getExpire());
     }
 
@@ -117,13 +87,7 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $cookie = new Cookie();
         $this->assertEquals('', $cookie->getName());
 
-        $cookie = $cookie->setName($name);
-
-        $this->assertTrue(
-            ($cookie instanceof CookieInterface),
-            'setName need to return CookieInterface'
-        );
-
+        $cookie->setName($name);
         $this->assertEquals($name, $cookie->getName());
     }
 
@@ -134,13 +98,7 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $cookie = new Cookie();
         $this->assertEquals('', $cookie->getValue());
 
-        $cookie = $cookie->setValue($value);
-
-        $this->assertTrue(
-            ($cookie instanceof CookieInterface),
-            'setValue need to return CookieInterface'
-        );
-
+        $cookie->setValue($value);
         $this->assertEquals($value, $cookie->getValue());
     }
 

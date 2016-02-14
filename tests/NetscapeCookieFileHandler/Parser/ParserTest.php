@@ -4,6 +4,8 @@ namespace KeGi\NetscapeCookieFileHandler\Tests\Parser;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\Configuration;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
+use KeGi\NetscapeCookieFileHandler\Parser\ParserInterface;
+use KeGi\NetscapeCookieFileHandler\Tests\CookieFileHandlerTest;
 use PHPUnit_Framework_TestCase;
 use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 use KeGi\NetscapeCookieFileHandler\Parser\Parser;
@@ -11,23 +13,15 @@ use KeGi\NetscapeCookieFileHandler\Parser\Parser;
 class ParserTest extends PHPUnit_Framework_TestCase
 {
 
-    /**
-     * Cookie path
-     */
-    const COOKIE_PATH
-        = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-        . '_files' . DIRECTORY_SEPARATOR . 'cookies';
+    public function testParserInterface()
+    {
+        $parser = new Parser();
 
-    /**
-     * Cookie file that we'll used to test the parser
-     */
-    const COOKIE_FILE_NAME = 'example.txt';
-
-    /**
-     * full path cookie file
-     */
-    const COOKIE_FILE
-        = self::COOKIE_PATH . DIRECTORY_SEPARATOR . self::COOKIE_FILE_NAME;
+        $this->assertTrue(
+            $parser instanceof ParserInterface,
+            'Parser class need to implement ParserInterface'
+        );
+    }
 
     public function testParseFile()
     {
@@ -66,9 +60,11 @@ class ParserTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $parser
-            = new Parser((new Configuration())->setCookieDir(self::COOKIE_PATH));
-        $cookies = $parser->parseFile(self::COOKIE_FILE_NAME);
+        $parser = new Parser(
+            (new Configuration())->setCookieDir(CookieFileHandlerTest::COOKIE_PATH)
+        );
+
+        $cookies = $parser->parseFile(CookieFileHandlerTest::COOKIE_FILE_NAME);
 
         $this->assertTrue($cookies instanceof CookieCollectionInterface);
 
@@ -79,16 +75,17 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $cookies,
-            $parser->parseContent(file_get_contents(self::COOKIE_FILE))
+            $parser->parseContent(file_get_contents(CookieFileHandlerTest::COOKIE_FILE))
         );
     }
 
     public function testParseFileMissingConfig()
     {
+
         $this->expectException(ParserException::class);
 
         $parser = new Parser();
-        $parser->parseFile(self::COOKIE_FILE_NAME);
+        $parser->parseFile(CookieFileHandlerTest::COOKIE_FILE_NAME);
     }
 
     public function testParseFileMissingDirConfig()
@@ -97,7 +94,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
         $this->expectException(ParserException::class);
 
         $parser = new Parser((new Configuration())->setCookieDir(''));
-        $parser->parseFile(self::COOKIE_FILE_NAME);
+        $parser->parseFile(CookieFileHandlerTest::COOKIE_FILE_NAME);
     }
 
     public function testParseUnknownFile()
@@ -106,7 +103,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
         $this->expectException(ParserException::class);
 
         $parser
-            = new Parser((new Configuration())->setCookieDir(self::COOKIE_PATH));
+            = new Parser((new Configuration())->setCookieDir(CookieFileHandlerTest::COOKIE_PATH));
         $parser->parseFile('unknown_file');
     }
 }
