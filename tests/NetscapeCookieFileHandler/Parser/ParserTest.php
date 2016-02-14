@@ -25,7 +25,6 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
     public function testParseFile()
     {
-
         $expectedCookiesArray = [
             'domain1.dev' => [
                 'key_a' => [
@@ -81,7 +80,6 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
     public function testParseFileMissingConfig()
     {
-
         $this->expectException(ParserException::class);
 
         $parser = new Parser();
@@ -90,7 +88,6 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
     public function testParseFileMissingDirConfig()
     {
-
         $this->expectException(ParserException::class);
 
         $parser = new Parser((new Configuration())->setCookieDir(''));
@@ -99,7 +96,6 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
     public function testParseUnknownFile()
     {
-
         $this->expectException(ParserException::class);
 
         $parser
