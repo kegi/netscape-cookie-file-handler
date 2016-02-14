@@ -43,7 +43,6 @@ class CookieJarPersisterTest extends PHPUnit_Framework_TestCase
 
     public function testPersistWithoutCookieDirParameter()
     {
-
         $this->expectException(CookieJarPersisterException::class);
 
         $persister
@@ -56,7 +55,6 @@ class CookieJarPersisterTest extends PHPUnit_Framework_TestCase
 
     public function testImcompleteCookie()
     {
-
         $persister = new CookieJarPersister(
             (new Configuration())
                 ->setCookieDir(CookieFileHandlerTest::COOKIE_PATH)
@@ -93,7 +91,6 @@ class CookieJarPersisterTest extends PHPUnit_Framework_TestCase
      */
     private function getCookieJar() : CookieJarInterface
     {
-
         $handler = new CookieFileHandler(
             (new Configuration())->setCookieDir(CookieFileHandlerTest::COOKIE_PATH)
         );
