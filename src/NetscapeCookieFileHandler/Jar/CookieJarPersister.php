@@ -65,7 +65,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
 
         if (empty($fileContent)) {
             if (is_file($filename)) {
-                if (!@unlink($filename)) {
+                if (!unlink($filename)) {
                     throw new CookieJarPersisterException(
                         sprintf(
                             'Unable to delete the cookies file : %1$s',
@@ -75,7 +75,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
                 }
             }
         } else {
-            if (@file_put_contents($filename, $fileContent) === false) {
+            if (file_put_contents($filename, $fileContent) === false) {
                 if (file_exists($filename)) {
                     throw new CookieJarPersisterException(
                         sprintf(

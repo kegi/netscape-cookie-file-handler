@@ -59,7 +59,7 @@ class Parser implements ParserInterface
             );
         }
 
-        $fileContent = @file_get_contents($file);
+        $fileContent = file_get_contents($file);
 
         // @codeCoverageIgnoreStart
 
