@@ -1,5 +1,15 @@
 {
   "name": "kegi/netscape-cookie-file-handler",
+  "type": "library",
+  "description": "Netscape Cookie File Handler",
+  "keywords": ["netscape", "cookie", "cookie file"],
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Kevin Gilbert",
+      "email": "kevin@kegisiteweb.com"
+    }
+  ],
   "require": {
     "php": ">=7.0"
   },
