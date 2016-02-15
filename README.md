@@ -72,13 +72,13 @@ For now, the configurations are pretty easy, there is only one parameter.
 This is where the library will look for cookie files. Note that this parameter is mandatory if you want to manipulate file.
 ```
 $configuration = new Configuration();
-$configuration->getCookieDir(); //return cookie directory
 $configuration->setCookieDir('cookies/');
+$configuration->getCookieDir(); //return "cookies/"
 ```
 
 <a name="cookie-entity"></a>
 ##Cookie Entity
-All cookies are hold inside a "**Cookie**" object and implements "**CookieInterface**".
+All cookies are hold inside a "**Cookie**" object and implements "**CookieInterface**", "**CookieInterface**" extends "**JsonSerializable**" which  allows you to directly convert it with "**json_encode**"..
 
 | Parameter | Default | Description
 | --- | --- | ---
@@ -90,13 +90,12 @@ All cookies are hold inside a "**Cookie**" object and implements "**CookieInterf
 | name |  | Name of the cookie (Mandatory) |
 | value |  | Value of the cookie (Empty value cookie will be discarded) |
 
+You can access cookie data using getters and setters.
 
- - You can access cookie data using getters and setters.
- - "**CookieInterface**" interface extends "**JsonSerializable**" which  allows you to directly convert it with "**json_encode**".
 
 <a name="cookie-collection"></a>
 ##Cookie Collection
-A collection of cookies is stored inside a "**CookieCollection**" and implements "**CookieCollectionInterface**". "**CookieCollectionInterface**" interface extends "**JsonSerializable**" which  allows you to directly convert it with "**json_encode**".
+A collection of cookies is stored inside a "**CookieCollection**" and implements "**CookieCollectionInterface**". "**CookieCollectionInterface**" extends "**JsonSerializable**" which  allows you to directly convert it with "**json_encode**".
 
 <a name="cookie-collection_importants-facts"></a>
 ###Importants Facts
@@ -108,7 +107,7 @@ A collection of cookies is stored inside a "**CookieCollection**" and implements
 ###Collection Methods
 
 **getCookies** ( )
-> This method return the array of cookies ordered by domain and cookie name
+> This method return the array of cookies ordered by domain and cookie name. This should be used as debugging purpose only. Use get() or getAll() instead to receive a collection of cookies.
 > ```
 ['domain1.dev'] =>
     ['cookie_a'] => ...
@@ -117,24 +116,25 @@ A collection of cookies is stored inside a "**CookieCollection**" and implements
     ['cookie_a'] => ...
  ```
 
-**setCookies** (array **\$cookies**)
-> This methods set the array of cookies. SetCookie will clear all cookies, perform some tests on array items and will internally call **add()**. Please note that **all cookies need to have a name and a domain** or an exception (**CookieCollectionException**) will be thrown. You can also send your default cookies to the constructor when creating a new collection.
+**setCookies** (array **$cookies**)
+> This methods set the array of cookies. SetCookie will clear all cookies, perform some tests on array items and will internally call **add()**. Please note that **all cookies need to have a name and a domain** or an exception (**CookieCollectionException**) will be thrown. You can also send your cookies to the constructor when creating a new collection.
 
-**get** ( string **\$cookieName**, string **\$domain** = null )
+**get** ( string **$cookieName**, string **$domain** = null )
 > This will find the cookie by name on the given domain. If no domain is specified, the collection will search inside all domains. This will return a "**CookieInterface**" object or **Null** if nothing is found.
 
-**getAll** ( string **\$domain** = null )
-> This will find all cookies of a given domain or all cookies if no domain is specified. This will always return a "**CookieCollectionInterface**".
+**getAll** ( string **$domain** = null )
+> This will find all cookies of a given domain or all cookies if no domain is specified. This will always return a "**CookieCollectionInterface**" object.
 
-**add** ( cookieInterface **\$cookie** )
+**add** ( cookieInterface **$cookie** )
 > This will add a cookie to the collection. NOTES :
 >  - If the given cookie has no domain, **the cookie will be added to ALL domains** that are already inside the collection. If there is no existing cookies, an exception (**CookieCollectionException**) will be thrown.
+>  - If you add an existing cookie, you will override it.
 
-**has** ( string **\$cookieName**, string **\$domain** = null )
+**has** ( string **$cookieName**, string **$domain** = null )
 > This will return true if the cookie exists for the given domain (if specified, or in all domains). Please note that cookies with empty value are discarded.
 
-**delete** ( string **\$cookieName**, string **\$domain** = null )
+**delete** ( string **$cookieName**, string **$domain** = null )
 > This will remove a cookie from the collection for the given domain or in all domains if $domain is not set.
 
-**deleteAll** ( string **\$domain** = null )
+**deleteAll** ( string **$domain** = null )
 > This will remove all cookies of the given domain or all cookies in the collection if $domain is not set.
