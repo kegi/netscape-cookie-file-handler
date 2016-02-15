@@ -31,6 +31,18 @@ class CookieFileHandlerTest extends PHPUnit_Framework_TestCase
         . self::COOKIE_FILE_NAME;
 
     /**
+     * Expected Cookie file, we'll compare our generated file with this one
+     */
+    const EXPECTED_COOKIE_FILE_NAME = 'example_expected.txt';
+
+    /**
+     * full path cookie file
+     */
+    const EXPECTED_COOKIE_FILE
+        = self::COOKIE_PATH . DIRECTORY_SEPARATOR
+        . self::EXPECTED_COOKIE_FILE_NAME;
+
+    /**
      * Test cookie file that we'll used to test the cookie jar
      */
     const COOKIE_TEST_FILE_NAME = 'example_test.txt';

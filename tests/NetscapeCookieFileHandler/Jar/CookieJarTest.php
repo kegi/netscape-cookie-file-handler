@@ -99,7 +99,11 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($cookieJar->has($cookieName, $cookieDomain));
 
         /*compare files with expected result*/
-        //todo : implement this test
+
+        $this->assertFileEquals(
+            CookieFileHandlerTest::EXPECTED_COOKIE_FILE,
+            CookieFileHandlerTest::COOKIE_TEST_FILE
+        );
 
         /*test delete*/
 
