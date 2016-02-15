@@ -5,7 +5,8 @@ use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
 use KeGi\NetscapeCookieFileHandler\CookieFileHandler;
 use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
 
-require_once 'includes/example_includes.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/includes/Example.php';
 
 echo PHP_EOL . '---' . PHP_EOL;
 echo 'Example (copy cookie file and edit it)';
@@ -15,14 +16,14 @@ try {
 
     /*for this example, we will copy the example file before editing it*/
 
-    copy(EXAMPLE_FILE, EXAMPLE_COPY_FILE);
+    copy(Example::EXAMPLE_FILE, Example::EXAMPLE_COPY_FILE);
 
     /*real case implementation :*/
 
-    $configuration = (new Configuration())->setCookieDir(COOKIES_DIR);
+    $configuration = (new Configuration())->setCookieDir(Example::COOKIES_DIR);
     $cookieJar
-        = (new CookieFileHandler($configuration))->parseFile(EXAMPLE_COPY_FILE_NAME);
-    $nbCookies = countCookies($cookieJar->getAll()->toArray());
+        = (new CookieFileHandler($configuration))->parseFile(Example::EXAMPLE_COPY_FILE_NAME);
+    $nbCookies = Example::countCookies($cookieJar->getAll()->toArray());
 
     $cookieJar->add(
         (new Cookie())
@@ -42,13 +43,13 @@ try {
     echo sprintf(
             'There were %1$d cookie(s) and now, there are %2$d cookie(s)',
             $nbCookies,
-            countCookies($cookieJar->getAll()->toArray())
+            Example::countCookies($cookieJar->getAll()->toArray())
         ) . PHP_EOL;
 
     echo sprintf(
             'Compare %1$s and %2$s',
-            EXAMPLE_FILE_NAME,
-            EXAMPLE_COPY_FILE_NAME
+            Example::EXAMPLE_FILE_NAME,
+            Example::EXAMPLE_COPY_FILE_NAME
         ) . PHP_EOL . PHP_EOL;
 } catch (NetscapeCookieFileHandlerException $e) {
     echo 'Handler Exception :' . PHP_EOL . PHP_EOL;
