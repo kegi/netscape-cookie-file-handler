@@ -49,15 +49,16 @@ $configuration->setCookieDir('cookies/');
 
 ##cookie entity
 All cookies are hold inside a cookie object and implement "**CookieInterface**".
-| Parameter | Default | Description                                                             |
-|-----------|---------|-------------------------------------------------------------------------|
-| domain    | NULL    | Domain where the cookie is active                                       |
-| httpOnly  | false   | If set to true, the cookie will only be enabled for http requests       |
-| path      | /       | Inside the domain, this cookie will only be available for this path     |
-| secure    | false   | If enable, this cookie will only be active with HTTPS requests          |
-| expire    | NULL    | Expiration of the cookie. DateTime object or NULL if no expiration date |
-| name      |         | Name of the cookie                                                      |
-| value     |         | Value of the cookie                                                     |
+
+| Parameter | Default | Description
+| --- | --- | ---
+| domain | NULL | Domain where the cookie is active
+| httpOnly | false | If set to true, the cookie will only be enabled for http requests
+| path | / | Inside the domain, this cookie will only be available for this path
+| secure | false | If enable, this cookie will only be active with HTTPS requests
+| expire | NULL | Expiration of the cookie. DateTime object or NULL if no expiration date
+| name |  | Name of the cookie |
+| value |  | Value of the cookie |
 
 ###setDomain
 CookieInterface **setDomain**( string $domain = null )
@@ -85,13 +86,3 @@ mixed **getDomain**()
 
 ###setValue
 ###getValue
-```
-$cookie = new Cookie();
-
-$cookie->getDomain();
-$cookie->setDomain();
-
-$cookie->getDomain();
-$cookie->setDomain();
-```
-
