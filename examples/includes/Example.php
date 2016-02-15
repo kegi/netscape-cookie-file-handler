@@ -38,7 +38,7 @@ class Example
      *
      * @return int
      */
-    static public function countCookies(array $cookiesByDomain) : int
+    public static function countCookies(array $cookiesByDomain) : int
     {
         $nb = 0;
 
