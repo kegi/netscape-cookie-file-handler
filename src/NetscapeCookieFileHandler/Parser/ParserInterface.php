@@ -2,7 +2,6 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Parser;
 
-use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
 use KeGi\NetscapeCookieFileHandler\Configuration\HasConfigurationInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
