@@ -1,6 +1,6 @@
 # Netscape Cookie File Handler
 [![Build Status](https://travis-ci.org/kegi/netscape-cookie-file-handler.svg?branch=master)](https://travis-ci.org/kegi/netscape-cookie-file-handler)
-[![Packagist](https://img.shields.io/packagist/v/kegi/netscape-cookie-file-handler.svg)]()
+[![Latest Stable Version](https://img.shields.io/packagist/v/kegi/netscape-cookie-file-handler.svg?style=flat)](https://packagist.org/packages/kegi/netscape-cookie-file-handler)
 [![StyleCI](https://styleci.io/repos/51558850/shield)](https://styleci.io/repos/51558850)
 [![Test Coverage](https://codeclimate.com/github/kegi/netscape-cookie-file-handler/badges/coverage.svg)](https://codeclimate.com/github/kegi/netscape-cookie-file-handler/coverage)
 
