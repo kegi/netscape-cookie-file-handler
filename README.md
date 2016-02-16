@@ -81,7 +81,7 @@ $configuration->getCookieDir(); //return "cookies/"
 
 <a name="cookiefilehandler"></a>
 ##Cookie File Handler
-This is the main library file (**CookieFileHandler**) and it implements **CookieFileHandlerInterface**. This class can receive a configuration object (**ConfigurationInterface**) and will allows you to get a cookie jar (**CookieJarInterface**).
+This is the main library class (**CookieFileHandler**) and it implements **CookieFileHandlerInterface**. This class can receive a configuration object (**ConfigurationInterface**) and will allows you to get a cookie jar (**CookieJarInterface**).
 
 <a name="cookiefilehandler_methods"></a>
 ###Handler Methods
@@ -90,8 +90,9 @@ This is the main library file (**CookieFileHandler**) and it implements **Cookie
 > Note: Cofiguration with "**cookieDir**" are needed to use this method. The file name will be searched from **cookieDir**
 > Note: The cookie jar will be associated with this file, **all changes applied to the jar will be persisted on that file**.
 
-**parseFile** ( string **$file** )
+**parseContent** ( string **$content** )
 > This will return a cookie jar and the changes applied to it won't be saved to any file.
+
 
 Those exceptions can be thrown when using the cookie jar :
 
@@ -100,7 +101,7 @@ Those exceptions can be thrown when using the cookie jar :
 
 <a name="cookie-jar"></a>
 ##Cookie Jar
-A Cookie Jar (**CookieJar**) implements "**CookieJarInterface**" and contains a collection of cookies (**CookieCollectionInterface**). A cookie jar can be associated to a file or not. If the cookie jar is linked to a file, all changes applied to the cookies will be persisted automatically. You can use
+A Cookie Jar (**CookieJar**) implements "**CookieJarInterface**" and contains a collection of cookies (**CookieCollectionInterface**). A cookie jar can be associated to a file or not. If the cookie jar is linked to a file, all changes applied to the cookies will be persisted automatically.
 
 The following collection methods are availables :
 
@@ -110,6 +111,7 @@ The following collection methods are availables :
  - has
  - delete
  - deleteAll
+
 
 Those exceptions can be thrown when using the cookie jar :
 
@@ -149,7 +151,7 @@ A collection of cookies is stored inside a "**CookieCollection**" and implements
 <a name="cookie-collection_methods"></a>
 ###Collection Methods
 
-**getCookies** ( )
+**getCookies** ()
 > This method return the array of cookies ordered by domain and cookie name. This should be used as debugging purpose only. Use get() or getAll() instead to receive a collection of cookies.
 > ```
 ['domain1.dev'] =>
@@ -159,26 +161,32 @@ A collection of cookies is stored inside a "**CookieCollection**" and implements
     ['cookie_a'] => ...
  ```
 
+
 **setCookies** (array **$cookies**)
 > This methods set the array of cookies. SetCookie will clear all cookies, perform some tests on array items and will internally call **add()**. Please note that **all cookies need to have a name and a domain** or an exception (**CookieCollectionException**) will be thrown. You can also send your cookies to the constructor when creating a new collection.
+
 
 **get** ( string **$cookieName**, string **$domain** = null )
 > This will find the cookie by name on the given domain. If no domain is specified, the collection will search inside all domains. This will return a "**CookieInterface**" object or **Null** if nothing is found.
 
+
 **getAll** ( string **$domain** = null )
 > This will find all cookies of a given domain or all cookies if no domain is specified. This will always return a "**CookieCollectionInterface**" object.
+
 
 **add** ( cookieInterface **$cookie** )
 > This will add a cookie to the collection. NOTES :
 >  - If the given cookie has no domain, **the cookie will be added to ALL domains** that are already inside the collection. If there is no existing cookies, an exception (**CookieCollectionException**) will be thrown.
 >  - If you add an existing cookie, you will override it.
 
+
 **has** ( string **$cookieName**, string **$domain** = null )
 > This will return true if the cookie exists for the given domain (if specified, or in all domains). Please note that cookies with empty value are discarded.
+
 
 **delete** ( string **$cookieName**, string **$domain** = null )
 > This will remove a cookie from the collection for the given domain or in all domains if $domain is not set.
 
+
 **deleteAll** ( string **$domain** = null )
 > This will remove all cookies of the given domain or all cookies in the collection if $domain is not set.
-
