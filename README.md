@@ -19,8 +19,11 @@ This library allows you to manipulate Netscape Cookie File (eg. Cookies generate
 4. [Example](#example)
 5. [Configuration](#configuration)
 	* [CookieDir](#configuration_cookiedir)
-6. [Cookie Entity](#cookie-entity)
-7. [Cookie Collection](#cookie-collection)
+6. [Cookie File Handler](#cookiefilehandler)
+	* [Handler Methods](#cookiefilehandler_methods)
+7. [Cookie Jar](#cookie-jar)
+8. [Cookie Entity](#cookie-entity)
+9. [Cookie Collection](#cookie-collection)
 	* [Importants Facts](#cookie-collection_importants-facts)
 	* [Collection Methods](#cookie-collection_methods)
 
@@ -75,6 +78,46 @@ $configuration = new Configuration();
 $configuration->setCookieDir('cookies/');
 $configuration->getCookieDir(); //return "cookies/"
 ```
+
+<a name="cookiefilehandler"></a>
+##Cookie File Handler
+This is the main library file (**CookieFileHandler**) and it implements **CookieFileHandlerInterface**. This class can receive a configuration object (**ConfigurationInterface**) and will allows you to get a cookie jar (**CookieJarInterface**).
+
+<a name="cookiefilehandler_methods"></a>
+###Handler Methods
+
+**parseFile** ( string **$file** )
+> Note: Cofiguration with "**cookieDir**" are needed to use this method. The file name will be searched from **cookieDir**
+> Note: The cookie jar will be associated with this file, **all changes applied to the jar will be persisted on that file**.
+
+**parseFile** ( string **$file** )
+> This will return a cookie jar and the changes applied to it won't be saved to any file.
+
+Those exceptions can be thrown when using the cookie jar :
+
+**ParserException**
+> Error reading the cookie file
+
+<a name="cookie-jar"></a>
+##Cookie Jar
+A Cookie Jar (**CookieJar**) implements "**CookieJarInterface**" and contains a collection of cookies (**CookieCollectionInterface**). A cookie jar can be associated to a file or not. If the cookie jar is linked to a file, all changes applied to the cookies will be persisted automatically. You can use
+
+The following collection methods are availables :
+
+ - get
+ - getAll
+ - add
+ - has
+ - delete
+ - deleteAll
+
+Those exceptions can be thrown when using the cookie jar :
+
+**CookieJarException**
+> Cookie Jar illegal operations
+
+**CookieJarPersisterException**
+> Errors when saving the cookie file
 
 <a name="cookie-entity"></a>
 ##Cookie Entity
@@ -138,3 +181,4 @@ A collection of cookies is stored inside a "**CookieCollection**" and implements
 
 **deleteAll** ( string **$domain** = null )
 > This will remove all cookies of the given domain or all cookies in the collection if $domain is not set.
+
