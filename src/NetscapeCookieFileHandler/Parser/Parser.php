@@ -88,12 +88,10 @@ class Parser implements ParserInterface
      * @return CookieCollectionInterface
      */
     public function parseContent(string $filecontent
-    ) : CookieCollectionInterface
-    {
+    ) : CookieCollectionInterface {
         $cookies = new CookieCollection();
 
         foreach (explode("\n", $filecontent) as $line) {
-
             $line = trim($line);
             $cookieData = array_map('trim', explode("\t", $line));
 
