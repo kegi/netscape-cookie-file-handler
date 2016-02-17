@@ -30,6 +30,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
                 'key_a' => [
                     'domain' => 'domain1.dev',
                     'httpOnly' => false,
+                    'flag' => false,
                     'path' => '/',
                     'secure' => false,
                     'expire' => null,
@@ -39,6 +40,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
                 'key_b' => [
                     'domain' => 'domain1.dev',
                     'httpOnly' => true,
+                    'flag' => true,
                     'path' => '/',
                     'secure' => true,
                     'expire' => new \DateTime(date('Y-m-d H:i:s', 1486849760)),
@@ -50,6 +52,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
                 'key_a' => [
                     'domain' => 'domain2.dev',
                     'httpOnly' => false,
+                    'flag' => false,
                     'path' => '/foo',
                     'secure' => true,
                     'expire' => null,

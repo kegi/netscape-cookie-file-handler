@@ -3,6 +3,6 @@
 # https://github.com/kegi/netscape-cookie-file-handler
 
 domain1.dev	FALSE	/	FALSE	0	key_a	value_a
-domain1.dev	TRUE	/	TRUE	1486849760	key_b	123
-domain1.dev	FALSE	/	FALSE	0	foo	bar
+#HttpOnly_domain1.dev	TRUE	/	TRUE	1486849760	key_b	123
+domain1.dev	TRUE	/	FALSE	0	foo	bar
 domain2.dev	FALSE	/foo	TRUE	0	key_a	true

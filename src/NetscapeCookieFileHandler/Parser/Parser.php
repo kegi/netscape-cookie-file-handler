@@ -16,6 +16,11 @@ class Parser implements ParserInterface
     use ConfigurationTrait;
 
     /**
+     * Http only prefix added to domain according to cookie specifications
+     */
+    const HTTP_ONLY_PREFIX = '#HttpOnly_';
+
+    /**
      * @param ConfigurationInterface|null $configuration
      */
     public function __construct(ConfigurationInterface $configuration = null)
@@ -83,20 +88,31 @@ class Parser implements ParserInterface
      * @return CookieCollectionInterface
      */
     public function parseContent(string $filecontent
-    ) : CookieCollectionInterface {
+    ) : CookieCollectionInterface
+    {
         $cookies = new CookieCollection();
 
         foreach (explode("\n", $filecontent) as $line) {
+
             $line = trim($line);
-
-            if (isset($line[0]) && $line[0] === '#') {
-                continue;
-            }
-
             $cookieData = array_map('trim', explode("\t", $line));
 
             if (count($cookieData) !== 7) {
                 continue;
+            }
+
+            $httpOnly = false;
+            $httpOnlyPrefixLength = strlen(self::HTTP_ONLY_PREFIX);
+
+            if (substr($cookieData[0], 0, $httpOnlyPrefixLength)
+                === self::HTTP_ONLY_PREFIX
+            ) {
+                $cookieData[0] = substr($cookieData[0], $httpOnlyPrefixLength);
+                $httpOnly = true;
+            } else {
+                if ($cookieData[0][0] === '#') {
+                    continue;
+                }
             }
 
             $expire = empty($cookieData[4]) ? null : $cookieData[4];
@@ -108,7 +124,8 @@ class Parser implements ParserInterface
             $cookies->add(
                 (new Cookie())
                     ->setDomain($cookieData[0])
-                    ->setHttpOnly(strtolower($cookieData[1]) === 'true')
+                    ->setHttpOnly($httpOnly)
+                    ->setFlag(strtolower($cookieData[1]) === 'true')
                     ->setPath($cookieData[2])
                     ->setSecure(strtolower($cookieData[3]) === 'true')
                     ->setExpire($expire)

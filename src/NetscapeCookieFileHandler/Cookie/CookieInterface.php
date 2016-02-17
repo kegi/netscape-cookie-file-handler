@@ -32,6 +32,18 @@ interface CookieInterface extends JsonSerializable
     public function setHttpOnly(bool $httpOnly) : CookieInterface;
 
     /**
+     * @return bool
+     */
+    public function isFlag() : bool;
+
+    /**
+     * @param bool $flag
+     *
+     * @return self
+     */
+    public function setFlag(bool $flag) : CookieInterface;
+
+    /**
      * @return string
      */
     public function getPath() : string;

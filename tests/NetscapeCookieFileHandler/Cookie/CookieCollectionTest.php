@@ -393,11 +393,11 @@ class CookieCollectionTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey($cookie1->getDomain(), $collectionToArray);
         $this->assertArrayHasKey($cookie3->getDomain(), $collectionToArray);
 
-        $this->assertEquals(7,
+        $this->assertEquals(8,
             count($collectionToArray[$cookie1->getDomain()][$cookie1->getName()]));
-        $this->assertEquals(7,
+        $this->assertEquals(8,
             count($collectionToArray[$cookie1->getDomain()][$cookie2->getName()]));
-        $this->assertEquals(7,
+        $this->assertEquals(8,
             count($collectionToArray[$cookie3->getDomain()][$cookie3->getName()]));
 
         $this->assertEquals(

@@ -43,6 +43,18 @@ class CookieTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($cookie->isHttpOnly());
     }
 
+    public function testCookieFlagParameter()
+    {
+        $cookie = new Cookie();
+        $this->assertTrue($cookie->isFlag());
+
+        $cookie->setFlag(false);
+        $this->assertFalse($cookie->isFlag());
+
+        $cookie = $cookie->setFlag(true);
+        $this->assertTrue($cookie->isFlag());
+    }
+
     public function testCookiePathParameter()
     {
         $path = 'foo';
@@ -110,6 +122,7 @@ class CookieTest extends PHPUnit_Framework_TestCase
 
         $this->assertArrayHasKey('domain', $cookieToArray);
         $this->assertArrayHasKey('httpOnly', $cookieToArray);
+        $this->assertArrayHasKey('flag', $cookieToArray);
         $this->assertArrayHasKey('path', $cookieToArray);
         $this->assertArrayHasKey('secure', $cookieToArray);
         $this->assertArrayHasKey('expire', $cookieToArray);

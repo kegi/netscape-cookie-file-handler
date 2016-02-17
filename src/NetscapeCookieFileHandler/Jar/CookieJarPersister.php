@@ -9,6 +9,7 @@ use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarPersisterException;
 use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
+use KeGi\NetscapeCookieFileHandler\Parser\Parser;
 
 class CookieJarPersister implements CookieJarPersisterInterface
 {
@@ -45,7 +46,8 @@ class CookieJarPersister implements CookieJarPersisterInterface
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
-    ) : CookieJarPersisterInterface {
+    ) : CookieJarPersisterInterface
+    {
         if (empty($this->getConfiguration()->getCookieDir())) {
             throw new CookieJarPersisterException(
                 'You need to specify the cookieDir parameter in configurations in order to persist a file'
@@ -118,6 +120,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
 
                 $domain = $cookie->getDomain();
                 $httpOnly = $cookie->isHttpOnly();
+                $flag = $cookie->isFlag();
                 $path = $cookie->getPath();
                 $secure = $cookie->isSecure();
                 $expire = $cookie->getExpire();
@@ -126,7 +129,11 @@ class CookieJarPersister implements CookieJarPersisterInterface
 
                 /*format data for output*/
 
-                $httpOnly = $httpOnly ? 'TRUE' : 'FALSE';
+                if ($httpOnly) {
+                    $domain = Parser::HTTP_ONLY_PREFIX . $domain;
+                }
+
+                $flag = $flag ? 'TRUE' : 'FALSE';
                 $secure = $secure ? 'TRUE' : 'FALSE';
 
                 if (empty($path)) {
@@ -143,7 +150,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
 
                 $output .= implode("\t", array_map('trim', [
                         $domain,
-                        $httpOnly,
+                        $flag,
                         $path,
                         $secure,
                         $expire,

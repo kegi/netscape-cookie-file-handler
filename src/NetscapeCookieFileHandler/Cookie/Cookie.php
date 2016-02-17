@@ -18,6 +18,11 @@ class Cookie implements CookieInterface
     private $httpOnly = false;
 
     /**
+     * @var bool
+     */
+    private $flag = true;
+
+    /**
      * @var string
      */
     private $path = '/';
@@ -78,6 +83,26 @@ class Cookie implements CookieInterface
     public function setHttpOnly(bool $httpOnly) : CookieInterface
     {
         $this->httpOnly = $httpOnly;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFlag() : bool
+    {
+        return $this->flag;
+    }
+
+    /**
+     * @param bool $flag
+     *
+     * @return CookieInterface
+     */
+    public function setFlag(bool $flag) : CookieInterface
+    {
+        $this->flag = $flag;
 
         return $this;
     }
@@ -190,6 +215,7 @@ class Cookie implements CookieInterface
         return [
             'domain' => $this->getDomain(),
             'httpOnly' => $this->isHttpOnly(),
+            'flag' => $this->isFlag(),
             'path' => $this->getPath(),
             'secure' => $this->isSecure(),
             'expire' => $this->getExpire(),
