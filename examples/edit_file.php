@@ -33,7 +33,7 @@ try {
             ->setExpire(new DateTime('2020-02-20 20:20:02'))
             ->setName('foo')
             ->setValue('bar')
-    );
+    )->persist();
 
     /*Because we injected a cookie with no domain, this cookie has been added to
     all domains inside the cookie file*/
