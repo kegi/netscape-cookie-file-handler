@@ -78,8 +78,7 @@ class CookieFileHandler implements CookieFileHandlerInterface
      * @return CookieFileHandlerInterface
      */
     public function setParser(ParserInterface $parser
-    ) : CookieFileHandlerInterface
-    {
+    ) : CookieFileHandlerInterface {
         $this->parser = $parser;
 
         return $this;
