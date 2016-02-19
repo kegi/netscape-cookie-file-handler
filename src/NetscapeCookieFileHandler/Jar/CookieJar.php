@@ -57,8 +57,7 @@ class CookieJar implements CookieJarInterface
      * @return CookieJarInterface
      */
     public function setCookies(CookieCollectionInterface $cookies
-    ) : CookieJarInterface
-    {
+    ) : CookieJarInterface {
         $this->cookies = $cookies;
 
         return $this;
@@ -112,8 +111,7 @@ class CookieJar implements CookieJarInterface
      */
     public function add(
         CookieInterface $cookie
-    ) : CookieJarInterface
-    {
+    ) : CookieJarInterface {
         $this->getCookies()->add($cookie);
 
         return $this;
@@ -139,8 +137,7 @@ class CookieJar implements CookieJarInterface
     public function delete(
         string $cookieName,
         string $domain = null
-    ) : CookieJarInterface
-    {
+    ) : CookieJarInterface {
         $this->getCookies()->delete($cookieName);
 
         return $this;
@@ -175,7 +172,6 @@ class CookieJar implements CookieJarInterface
      */
     public function getPersister() : CookieJarPersisterInterface
     {
-
         return $this->persister ??
         new CookieJarPersister($this->getConfiguration());
     }
@@ -188,8 +184,7 @@ class CookieJar implements CookieJarInterface
      * @return CookieJarInterface
      */
     public function setPersister(CookieJarPersisterInterface $persister
-    ) : CookieJarInterface
-    {
+    ) : CookieJarInterface {
         $this->persister = $persister;
 
         return $this;
