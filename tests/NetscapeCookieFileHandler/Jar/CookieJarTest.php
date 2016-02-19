@@ -33,7 +33,11 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
 
     public function testCookieJarInterface()
     {
-        $jar = new CookieJar(new CookieCollection());
+        $jar = new CookieJar(
+            new CookieCollection(),
+            (new Configuration())->setCookieDir(CookieFileHandlerTest::COOKIE_PATH),
+            CookieFileHandlerTest::COOKIE_TEST_FILE_NAME
+        );
 
         $this->assertTrue(
             $jar instanceof CookieJarInterface,
@@ -51,17 +55,9 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($file, $cookieJar->getCookiesFile());
     }
 
-    public function testGetPersisterWithoutConfig()
-    {
-        $this->expectException(CookieJarException::class);
-
-        (new CookieJar(new CookieCollection()))->getPersister();
-    }
-
     public function testGetterSetterCookies()
     {
         $cookieJar = $this->getCookieJar();
-        $this->assertTrue($cookieJar instanceof CookieJarInterface);
 
         $cookies = $cookieJar->getCookies();
         $this->assertTrue($cookies instanceof CookieCollectionInterface);
@@ -91,7 +87,8 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
             (new Cookie())
                 ->setDomain($cookieDomain)
                 ->setName($cookieName)
-                ->setValue($cookieValue));
+                ->setValue($cookieValue)
+        )->persist();
 
         /*read the cookie file again and check if new cookie is here*/
 
@@ -107,7 +104,7 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
 
         /*test delete*/
 
-        $cookieJar->delete($cookieName);
+        $cookieJar->delete($cookieName)->persist();
 
         /*read the cookie file again and check if new cookie is here*/
 
@@ -118,7 +115,7 @@ class CookieJarTest extends PHPUnit_Framework_TestCase
     public function testDeleteAll()
     {
         $cookieJar = $this->getCookieJar();
-        $cookieJar->deleteAll();
+        $cookieJar->deleteAll()->persist();
         $this->assertFalse(file_exists(CookieFileHandlerTest::COOKIE_TEST_FILE));
     }
 

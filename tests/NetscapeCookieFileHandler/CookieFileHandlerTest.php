@@ -2,11 +2,12 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Tests;
 
+use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
+use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
 use KeGi\NetscapeCookieFileHandler\Configuration\Configuration;
 use KeGi\NetscapeCookieFileHandler\CookieFileHandler;
 use KeGi\NetscapeCookieFileHandler\CookieFileHandlerInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJarInterface;
-use KeGi\NetscapeCookieFileHandler\Tests\Parser\ParserTest;
 use PHPUnit_Framework_TestCase;
 
 class CookieFileHandlerTest extends PHPUnit_Framework_TestCase
@@ -64,7 +65,7 @@ class CookieFileHandlerTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testHandler()
+    public function testParseFile()
     {
         $handler = new CookieFileHandler(
             (new Configuration())->setCookieDir(self::COOKIE_PATH)
@@ -73,9 +74,21 @@ class CookieFileHandlerTest extends PHPUnit_Framework_TestCase
         $cookieJar = $handler->parseFile(self::COOKIE_FILE_NAME);
 
         $this->assertTrue($cookieJar instanceof CookieJarInterface);
+    }
 
+    public function testParseFileWithoutConfiguration()
+    {
+        $this->expectException(NetscapeCookieFileHandlerException::class);
+
+        $handler = new CookieFileHandler();
+        $handler->parseFile(self::COOKIE_FILE_NAME);
+    }
+
+    public function testParseContent()
+    {
+        $handler = new CookieFileHandler();
         $cookieJar = $handler->parseContent('');
 
-        $this->assertTrue($cookieJar instanceof CookieJarInterface);
+        $this->assertTrue($cookieJar instanceof CookieCollectionInterface);
     }
 }
