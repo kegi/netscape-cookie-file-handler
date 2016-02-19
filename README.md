@@ -147,6 +147,7 @@ All cookies are hold inside a "**Cookie**" object and implements "**CookieInterf
 | --- | --- | ---
 | domain | NULL | Domain where the cookie is active
 | httpOnly | false | If set to true, the cookie will only be enabled for http requests
+| flag | true | If enable, all machines within a given domain can access the variable
 | path | / | Inside the domain, this cookie will only be available for this path
 | secure | false | If enable, this cookie will only be active with HTTPS requests
 | expire | NULL | Expiration of the cookie. DateTime object or NULL if no expiration date

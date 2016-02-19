@@ -46,8 +46,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
-    ) : CookieJarPersisterInterface
-    {
+    ) : CookieJarPersisterInterface {
         if (empty($this->getConfiguration()->getCookieDir())) {
             throw new CookieJarPersisterException(
                 'You need to specify the cookieDir parameter in configurations in order to persist a file'
