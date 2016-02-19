@@ -23,6 +23,7 @@ This library allows you to manipulate Netscape Cookie File (eg. Cookies generate
 6. [Cookie File Handler](#cookiefilehandler)
 	* [Handler Methods](#cookiefilehandler_methods)
 7. [Cookie Jar](#cookie-jar)
+    * [Jar Methods](#cookie-jar_methods)
 8. [Cookie Entity](#cookie-entity)
 9. [Cookie Collection](#cookie-collection)
 	* [Importants Facts](#cookie-collection_importants-facts)
@@ -64,7 +65,7 @@ $cookieJar->add(
         ->setExpire(new DateTime('2020-02-20 20:20:02'))
         ->setName('foo')
         ->setValue('bar')
-);
+)->persist();
 ```
 
 <a name="configuration"></a>
@@ -88,21 +89,25 @@ This is the main library class (**CookieFileHandler**) and it implements **Cooki
 ###Handler Methods
 
 **parseFile** ( string **$file** )
-> Note: Cofiguration with "**cookieDir**" are needed to use this method. The file name will be searched from **cookieDir**
-> Note: The cookie jar will be associated with this file, **all changes applied to the jar will be persisted on that file**.
+> Note: Configuration with "**cookieDir**" are needed to use this method. The file name will be searched from **cookieDir**
+> Note: The cookie jar will be associated with this file, **you will be able to persist changes to that file**.
 
 **parseContent** ( string **$content** )
-> This will return a cookie jar and the changes applied to it won't be saved to any file.
+> This will return a cookie collection.
 
+###Exceptions
 
 Those exceptions can be thrown when using the cookie jar :
+
+**NetscapeCookieFileHandlerException**
+> Illegal operation, eg. missing configuration
 
 **ParserException**
 > Error reading the cookie file
 
 <a name="cookie-jar"></a>
 ##Cookie Jar
-A Cookie Jar (**CookieJar**) implements "**CookieJarInterface**" and contains a collection of cookies (**CookieCollectionInterface**). A cookie jar can be associated to a file or not. If the cookie jar is linked to a file, all changes applied to the cookies will be persisted automatically.
+A Cookie Jar (**CookieJar**) implements "**CookieJarInterface**" and contains a collection of cookies (**CookieCollectionInterface**). A cookie jar is associated to a file. All changes applied to the cookies can be persisted using the **persist()** function.
 
 The following collection methods are availables :
 
@@ -121,6 +126,18 @@ Those exceptions can be thrown when using the cookie jar :
 
 **CookieJarPersisterException**
 > Errors when saving the cookie file
+
+<a name="cookie-jar_methods"></a>
+###Cookie Jar Methods
+
+**getCookiesFile** ()
+> To get the cookies file (to persist the cookies)
+
+**setCookiesFile** ( string **$cookiesFile** )
+> To set the cookies file (will be append to **cookieDir** from the configuration)
+
+**persist** ()
+> This method will save the current cookie collection in the cookies file
 
 <a name="cookie-entity"></a>
 ##Cookie Entity
