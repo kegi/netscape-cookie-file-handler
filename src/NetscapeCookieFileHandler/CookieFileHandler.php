@@ -4,8 +4,9 @@ namespace KeGi\NetscapeCookieFileHandler;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationTrait;
+use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
+use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJarInterface;
-use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJar;
 use KeGi\NetscapeCookieFileHandler\Parser\Parser;
 use KeGi\NetscapeCookieFileHandler\Parser\ParserInterface;
@@ -34,10 +35,16 @@ class CookieFileHandler implements CookieFileHandlerInterface
      * @param string $file
      *
      * @return CookieJarInterface
-     * @throws ParserException
+     * @throws NetscapeCookieFileHandlerException
      */
     public function parseFile(string $file) : CookieJarInterface
     {
+        if (!($this->getConfiguration() instanceof ConfigurationInterface)) {
+            throw new NetscapeCookieFileHandlerException(
+                'Configuration is mandatory with parseFile method'
+            );
+        }
+
         return new CookieJar(
             $this->getParser()->parseFile($file),
             $this->getConfiguration(),
@@ -48,14 +55,11 @@ class CookieFileHandler implements CookieFileHandlerInterface
     /**
      * @param string $content
      *
-     * @return CookieJarInterface
+     * @return CookieCollectionInterface
      */
-    public function parseContent(string $content) : CookieJarInterface
+    public function parseContent(string $content) : CookieCollectionInterface
     {
-        return new CookieJar(
-            $this->getParser()->parseContent($content),
-            $this->getConfiguration()
-        );
+        return $this->getParser()->parseContent($content);
     }
 
     /**
@@ -73,7 +77,8 @@ class CookieFileHandler implements CookieFileHandlerInterface
      *
      * @return CookieFileHandlerInterface
      */
-    public function setParser(ParserInterface $parser) : CookieFileHandlerInterface
+    public function setParser(ParserInterface $parser
+    ) : CookieFileHandlerInterface
     {
         $this->parser = $parser;
 

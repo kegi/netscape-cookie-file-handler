@@ -3,8 +3,9 @@
 namespace KeGi\NetscapeCookieFileHandler;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\HasConfigurationInterface;
+use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
+use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJarInterface;
-use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 use KeGi\NetscapeCookieFileHandler\Parser\ParserInterface;
 
 interface CookieFileHandlerInterface extends HasConfigurationInterface
@@ -13,16 +14,16 @@ interface CookieFileHandlerInterface extends HasConfigurationInterface
      * @param string $file
      *
      * @return CookieJarInterface
-     * @throws ParserException
+     * @throws NetscapeCookieFileHandlerException
      */
     public function parseFile(string $file) : CookieJarInterface;
 
     /**
      * @param string $content
      *
-     * @return CookieJarInterface
+     * @return CookieCollectionInterface
      */
-    public function parseContent(string $content) : CookieJarInterface;
+    public function parseContent(string $content) : CookieCollectionInterface;
 
     /**
      * @return ParserInterface

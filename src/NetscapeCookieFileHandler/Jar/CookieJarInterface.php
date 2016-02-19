@@ -2,12 +2,12 @@
 
 namespace KeGi\NetscapeCookieFileHandler\Jar;
 
-use KeGi\NetscapeCookieFileHandler\Configuration\HasConfigurationInterface;
+use KeGi\NetscapeCookieFileHandler\Configuration\HasMandatoryConfigurationInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
 
-interface CookieJarInterface extends HasConfigurationInterface
+interface CookieJarInterface extends HasMandatoryConfigurationInterface
 {
 
     /**
@@ -24,16 +24,16 @@ interface CookieJarInterface extends HasConfigurationInterface
     ) : CookieJarInterface;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getCookiesFile();
+    public function getCookiesFile() : string;
 
     /**
-     * @param string|null $cookiesFile
+     * @param string $cookiesFile
      *
      * @return self
      */
-    public function setCookiesFile($cookiesFile) : CookieJarInterface;
+    public function setCookiesFile(string $cookiesFile) : CookieJarInterface;
 
     /**
      * @param string      $cookieName
@@ -86,8 +86,13 @@ interface CookieJarInterface extends HasConfigurationInterface
     public function deleteAll(string $domain = null) : CookieJarInterface;
 
     /**
-     * @return CookieJarPersisterInterface
+     * @return CookieJarInterface
      * @throws CookieJarException
+     */
+    public function persist() : CookieJarInterface;
+
+    /**
+     * @return CookieJarPersisterInterface
      */
     public function getPersister() : CookieJarPersisterInterface;
 
