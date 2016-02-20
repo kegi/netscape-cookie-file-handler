@@ -7,6 +7,8 @@ use KeGi\NetscapeCookieFileHandler\Configuration\MandatoryConfigurationTrait;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
+use KeGi\NetscapeCookieFileHandler\Persister\Persister;
+use KeGi\NetscapeCookieFileHandler\Persister\PersisterInterface;
 
 class CookieJar implements CookieJarInterface
 {
@@ -24,7 +26,7 @@ class CookieJar implements CookieJarInterface
     private $cookiesFile;
 
     /**
-     * @var CookieJarPersisterInterface
+     * @var PersisterInterface
      */
     private $persister;
 
@@ -168,22 +170,22 @@ class CookieJar implements CookieJarInterface
     }
 
     /**
-     * @return CookieJarPersisterInterface
+     * @return PersisterInterface
      */
-    public function getPersister() : CookieJarPersisterInterface
+    public function getPersister() : PersisterInterface
     {
         return $this->persister ??
-        new CookieJarPersister($this->getConfiguration());
+        new Persister($this->getConfiguration());
     }
 
     /**
      * @codeCoverageIgnore
      *
-     * @param CookieJarPersisterInterface $persister
+     * @param PersisterInterface $persister
      *
      * @return CookieJarInterface
      */
-    public function setPersister(CookieJarPersisterInterface $persister
+    public function setPersister(PersisterInterface $persister
     ) : CookieJarInterface {
         $this->persister = $persister;
 

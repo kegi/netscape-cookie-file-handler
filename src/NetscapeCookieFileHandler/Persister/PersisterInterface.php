@@ -1,13 +1,13 @@
 <?php
 
-namespace KeGi\NetscapeCookieFileHandler\Jar;
+namespace KeGi\NetscapeCookieFileHandler\Persister;
 
 use KeGi\NetscapeCookieFileHandler\Configuration\HasMandatoryConfigurationInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
-use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarPersisterException;
+use KeGi\NetscapeCookieFileHandler\Persister\Exception\PersisterException;
 use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 
-interface CookieJarPersisterInterface extends HasMandatoryConfigurationInterface
+interface PersisterInterface extends HasMandatoryConfigurationInterface
 {
 
     /**
@@ -15,11 +15,11 @@ interface CookieJarPersisterInterface extends HasMandatoryConfigurationInterface
      * @param string                    $filename
      *
      * @return self
-     * @throws CookieJarPersisterException
+     * @throws PersisterException
      * @throws ParserException
      */
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
-    ) : CookieJarPersisterInterface;
+    ) : PersisterInterface;
 }
