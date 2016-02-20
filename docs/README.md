@@ -111,7 +111,7 @@ Those exceptions can be thrown when using the cookie jar :
 **CookieJarException**
 > Cookie Jar illegal operations
 
-**CookieJarPersisterException**
+**PersisterException**
 > Errors when saving the cookie file
 
 <a name="cookie-jar_methods"></a>

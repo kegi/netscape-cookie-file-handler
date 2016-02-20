@@ -6,6 +6,7 @@ use KeGi\NetscapeCookieFileHandler\Configuration\HasMandatoryConfigurationInterf
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
 use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
+use KeGi\NetscapeCookieFileHandler\Persister\PersisterInterface;
 
 interface CookieJarInterface extends HasMandatoryConfigurationInterface
 {
@@ -92,14 +93,14 @@ interface CookieJarInterface extends HasMandatoryConfigurationInterface
     public function persist() : CookieJarInterface;
 
     /**
-     * @return CookieJarPersisterInterface
+     * @return PersisterInterface
      */
-    public function getPersister() : CookieJarPersisterInterface;
+    public function getPersister() : PersisterInterface;
 
     /**
-     * @param CookieJarPersisterInterface $persister
+     * @param PersisterInterface $persister
      *
      * @return $this
      */
-    public function setPersister(CookieJarPersisterInterface $persister);
+    public function setPersister(PersisterInterface $persister);
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace KeGi\NetscapeCookieFileHandler\Jar;
+namespace KeGi\NetscapeCookieFileHandler\Persister;
 
 use DateTime;
 use KeGi\NetscapeCookieFileHandler\Configuration\ConfigurationInterface;
 use KeGi\NetscapeCookieFileHandler\Configuration\MandatoryConfigurationTrait;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollectionInterface;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieInterface;
-use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarPersisterException;
+use KeGi\NetscapeCookieFileHandler\Persister\Exception\PersisterException;
 use KeGi\NetscapeCookieFileHandler\Parser\Exception\ParserException;
 use KeGi\NetscapeCookieFileHandler\Parser\Parser;
 
-class CookieJarPersister implements CookieJarPersisterInterface
+class Persister implements PersisterInterface
 {
 
     use MandatoryConfigurationTrait;
@@ -39,16 +39,16 @@ class CookieJarPersister implements CookieJarPersisterInterface
      * @param CookieCollectionInterface $cookies
      * @param string                    $filename
      *
-     * @return CookieJarPersisterInterface
-     * @throws CookieJarPersisterException
+     * @return PersisterInterface
+     * @throws PersisterException
      * @throws ParserException
      */
     public function persist(
         CookieCollectionInterface $cookies,
         string $filename
-    ) : CookieJarPersisterInterface {
+    ) : PersisterInterface {
         if (empty($this->getConfiguration()->getCookieDir())) {
-            throw new CookieJarPersisterException(
+            throw new PersisterException(
                 'You need to specify the cookieDir parameter in configurations in order to persist a file'
             );
         }
@@ -67,7 +67,7 @@ class CookieJarPersister implements CookieJarPersisterInterface
         if (empty($fileContent)) {
             if (is_file($filename)) {
                 if (!unlink($filename)) {
-                    throw new CookieJarPersisterException(
+                    throw new PersisterException(
                         sprintf(
                             'Unable to delete the cookies file : %1$s',
                             $filename
@@ -78,14 +78,14 @@ class CookieJarPersister implements CookieJarPersisterInterface
         } else {
             if (file_put_contents($filename, $fileContent) === false) {
                 if (file_exists($filename)) {
-                    throw new CookieJarPersisterException(
+                    throw new PersisterException(
                         sprintf(
                             'Unable to edit the cookies file : %1$s',
                             $filename
                         )
                     );
                 } else {
-                    throw new CookieJarPersisterException(
+                    throw new PersisterException(
                         sprintf(
                             'Unable to create the cookies file : %1$s',
                             $filename

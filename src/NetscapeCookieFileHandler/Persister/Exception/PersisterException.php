@@ -1,11 +1,11 @@
 <?php
 
-namespace KeGi\NetscapeCookieFileHandler\Jar\Exception;
+namespace KeGi\NetscapeCookieFileHandler\Persister\Exception;
 
 use Exception;
 use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
 
-class CookieJarPersisterException extends NetscapeCookieFileHandlerException
+class PersisterException extends NetscapeCookieFileHandlerException
 {
     /**
      * @param string         $message
@@ -17,7 +17,7 @@ class CookieJarPersisterException extends NetscapeCookieFileHandlerException
         $code = 0,
         Exception $previous = null
     ) {
-        $message = 'Cookie Jar Persister : ' . $message;
+        $message = 'Persister : ' . $message;
 
         parent::__construct($message, $code, $previous);
     }

@@ -5,9 +5,9 @@ namespace KeGi\NetscapeCookieFileHandler\Tests\Jar;
 use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
 use KeGi\NetscapeCookieFileHandler\CookieFileHandler;
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJarInterface;
-use KeGi\NetscapeCookieFileHandler\Jar\CookieJarPersisterInterface;
-use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarPersisterException;
-use KeGi\NetscapeCookieFileHandler\Jar\CookieJarPersister;
+use KeGi\NetscapeCookieFileHandler\Persister\PersisterInterface;
+use KeGi\NetscapeCookieFileHandler\Persister\Exception\PersisterException;
+use KeGi\NetscapeCookieFileHandler\Persister\Persister;
 use KeGi\NetscapeCookieFileHandler\Configuration\Configuration;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollection;
 use KeGi\NetscapeCookieFileHandler\Tests\CookieFileHandlerTest;
@@ -33,20 +33,20 @@ class CookieJarPersisterTest extends PHPUnit_Framework_TestCase
 
     public function testCookieJarPersisterInterface()
     {
-        $persister = new CookieJarPersister(new Configuration());
+        $persister = new Persister(new Configuration());
 
         $this->assertTrue(
-            $persister instanceof CookieJarPersisterInterface,
+            $persister instanceof PersisterInterface,
             'CookieJarPersister class need to implement CookieJarPersisterInterface'
         );
     }
 
     public function testPersistWithoutCookieDirParameter()
     {
-        $this->expectException(CookieJarPersisterException::class);
+        $this->expectException(PersisterException::class);
 
         $persister
-            = new CookieJarPersister((new Configuration())->setCookieDir(''));
+            = new Persister((new Configuration())->setCookieDir(''));
         $persister->persist(
             new CookieCollection(),
             CookieFileHandlerTest::COOKIE_TEST_FILE_NAME
@@ -55,7 +55,7 @@ class CookieJarPersisterTest extends PHPUnit_Framework_TestCase
 
     public function testImcompleteCookie()
     {
-        $persister = new CookieJarPersister(
+        $persister = new Persister(
             (new Configuration())
                 ->setCookieDir(CookieFileHandlerTest::COOKIE_PATH)
         );
