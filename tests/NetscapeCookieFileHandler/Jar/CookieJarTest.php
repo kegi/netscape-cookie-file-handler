@@ -3,7 +3,6 @@
 namespace KeGi\NetscapeCookieFileHandler\Tests\Jar;
 
 use KeGi\NetscapeCookieFileHandler\Jar\CookieJar;
-use KeGi\NetscapeCookieFileHandler\Jar\Exception\CookieJarException;
 use KeGi\NetscapeCookieFileHandler\Configuration\Configuration;
 use KeGi\NetscapeCookieFileHandler\Cookie\Cookie;
 use KeGi\NetscapeCookieFileHandler\Cookie\CookieCollection;

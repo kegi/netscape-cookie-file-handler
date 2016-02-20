@@ -8,6 +8,8 @@ use KeGi\NetscapeCookieFileHandler\Exception\NetscapeCookieFileHandlerException;
 class CookieJarException extends NetscapeCookieFileHandlerException
 {
     /**
+     * @codeCoverageIgnore
+     *
      * @param string         $message
      * @param int            $code
      * @param Exception|null $previous

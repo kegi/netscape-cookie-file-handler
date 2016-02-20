@@ -35,7 +35,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
                     'secure' => false,
                     'expire' => null,
                     'name' => 'key_a',
-                    'value' => 'value_a',
+                    'value' => 'value a',
                 ],
                 'key_b' => [
                     'domain' => 'domain1.dev',
