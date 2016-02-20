@@ -93,7 +93,7 @@ class Parser implements ParserInterface
 
         foreach (explode("\n", $filecontent) as $line) {
             $line = trim($line);
-            $cookieData = array_map('trim', explode("\t", $line));
+            $cookieData = array_map('trim', explode("\t", $line, 7));
 
             if (count($cookieData) !== 7) {
                 continue;
