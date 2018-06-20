@@ -1,7 +1,6 @@
 # Netscape Cookie File Handler
 [![Build Status](https://travis-ci.org/kegi/netscape-cookie-file-handler.svg?branch=master)](https://travis-ci.org/kegi/netscape-cookie-file-handler)
 [![Latest Stable Version](https://img.shields.io/packagist/v/kegi/netscape-cookie-file-handler.svg?style=flat)](https://packagist.org/packages/kegi/netscape-cookie-file-handler)
-[![StyleCI](https://styleci.io/repos/51558850/shield)](https://styleci.io/repos/51558850)
 [![Test Coverage](https://codeclimate.com/github/kegi/netscape-cookie-file-handler/badges/coverage.svg)](https://codeclimate.com/github/kegi/netscape-cookie-file-handler/coverage)
 
 [![Issue Count](https://codeclimate.com/github/kegi/netscape-cookie-file-handler/badges/issue_count.svg)](https://codeclimate.com/github/kegi/netscape-cookie-file-handler)
@@ -12,20 +11,20 @@ This library allows you to manipulate Netscape Cookie File (eg. Cookies generate
 
 ----------
 
-##Requirements
+## Requirements
 This is library is only available for **PHP7+**
 There is no other dependencies
 
-##Installation
+## Installation
 This library is available on packagist (**Composer**)
 ```shell
 composer require kegi/netscape-cookie-file-handler
 ```
 
-##What are Cookies Files ?
+## What are Cookies Files ?
 The Netscape cookie files are widely used. Curl, by example, allows you to select a file (called the cookie jar) to save and read the cookies using this format. This library will help you to manipulate and read those cookies.
 
-##Example
+## Example
 Simple example of reading + writing cookies
 
 ```php
@@ -47,10 +46,10 @@ $cookieJar->add(
 )->persist();
 ```
 
-##Documentation
+## Documentation
 
 Learn how to use the library here : [documentation](/docs/README.md).
 
-##Contribution
+## Contribution
 
 Feel free to contact me or send pull requests !
