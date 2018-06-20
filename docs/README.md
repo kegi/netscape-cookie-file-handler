@@ -1,5 +1,5 @@
-#Documentation
-##Table of content
+# Documentation
+## Table of content
 
 1. [Requirements](#requirements)
 2. [Installation](#installation)
@@ -18,22 +18,22 @@
 
 ----------
 <a name="requirements"></a>
-##Requirements
+## Requirements
 This is library is only available for **PHP7+**
 There is no other dependencies
 
 <a name="installation"></a>
-##Installation
+## Installation
 This library is available on packagist (**Composer**)
 ```shell
 composer require kegi/netscape-cookie-file-handler
 ```
 <a name="what-are-cookies-file"></a>
-##What are Cookies Files ?
+## What are Cookies Files ?
 The Netscape cookie files are widely used. Curl, by example, allows you to select a file (called the cookie jar) to save and read the cookies using this format. This library will help you to manipulate and read those cookies.
 
 <a name="example"></a>
-##Example
+## Example
 Simple example of reading + writing cookies
 
 ```php
@@ -56,11 +56,11 @@ $cookieJar->add(
 ```
 
 <a name="configuration"></a>
-##Configuration
+## Configuration
 For now, the configurations are pretty easy, there is only one parameter.
 
 <a name="configuration_cookiedir"></a>
-###cookieDir
+### cookieDir
 This is where the library will look for cookie files. Note that this parameter is mandatory if you want to manipulate file.
 ```
 $configuration = new Configuration();
@@ -69,11 +69,11 @@ $configuration->getCookieDir(); //return "cookies/"
 ```
 
 <a name="cookiefilehandler"></a>
-##Cookie File Handler
+## Cookie File Handler
 This is the main library class (**CookieFileHandler**) and it implements **CookieFileHandlerInterface**. This class can receive a configuration object (**ConfigurationInterface**) and will allows you to get a cookie jar (**CookieJarInterface**).
 
 <a name="cookiefilehandler_methods"></a>
-###Handler Methods
+### Handler Methods
 
 **parseFile** ( string **$file** )
 > Note: Configuration with "**cookieDir**" are needed to use this method. The file name will be searched from **cookieDir**
@@ -82,7 +82,7 @@ This is the main library class (**CookieFileHandler**) and it implements **Cooki
 **parseContent** ( string **$content** )
 > This will return a cookie collection.
 
-###Exceptions
+### Exceptions
 
 Those exceptions can be thrown when using the cookie jar :
 
@@ -93,7 +93,7 @@ Those exceptions can be thrown when using the cookie jar :
 > Error reading the cookie file
 
 <a name="cookie-jar"></a>
-##Cookie Jar
+## Cookie Jar
 A Cookie Jar (**CookieJar**) implements "**CookieJarInterface**" and contains a collection of cookies (**CookieCollectionInterface**). A cookie jar is associated to a file. All changes applied to the cookies can be persisted using the **persist()** function.
 
 The following collection methods are availables :
@@ -115,7 +115,7 @@ Those exceptions can be thrown when using the cookie jar :
 > Errors when saving the cookie file
 
 <a name="cookie-jar_methods"></a>
-###Cookie Jar Methods
+### Cookie Jar Methods
 
 **getCookiesFile** ()
 > To get the cookies file (to persist the cookies)
@@ -127,7 +127,7 @@ Those exceptions can be thrown when using the cookie jar :
 > This method will save the current cookie collection in the cookies file
 
 <a name="cookie-entity"></a>
-##Cookie Entity
+## Cookie Entity
 All cookies are hold inside a "**Cookie**" object and implements "**CookieInterface**", "**CookieInterface**" extends "**JsonSerializable**" which  allows you to directly convert it with "**json_encode**"..
 
 | Parameter | Default | Description
@@ -145,27 +145,27 @@ You can access cookie data using getters and setters.
 
 
 <a name="cookie-collection"></a>
-##Cookie Collection
+## Cookie Collection
 A collection of cookies is stored inside a "**CookieCollection**" and implements "**CookieCollectionInterface**". "**CookieCollectionInterface**" extends "**JsonSerializable**" which  allows you to directly convert it with "**json_encode**".
 
 <a name="cookie-collection_importants-facts"></a>
-###Importants Facts
+### Importants Facts
  - The cookies are ordered by domain
  - The cookie (name) are unique by  domain
  - A cookie with empty value will be ignored
 
 <a name="cookie-collection_methods"></a>
-###Collection Methods
+### Collection Methods
 
 **getCookies** ()
 > This method return the array of cookies ordered by domain and cookie name. This should be used as debugging purpose only. Use get() or getAll() instead to receive a collection of cookies.
 > ```
-['domain1.dev'] =>
-    ['cookie_a'] => ...
-    ['cookie_b'] => ...
-['domain2.dev'] =>
-    ['cookie_a'] => ...
- ```
+> ['domain1.dev'] =>
+>     ['cookie_a'] => ...
+>     ['cookie_b'] => ...
+> ['domain2.dev'] =>
+>     ['cookie_a'] => ...
+> ```
 
 
 **setCookies** (array **$cookies**)
